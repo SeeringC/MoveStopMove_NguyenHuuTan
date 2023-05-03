@@ -8,26 +8,22 @@ public class Player : Character
     [SerializeField] private FloatingJoystick joystick;
     [SerializeField] private Rigidbody rb;
 
-    public Animator anim;
 
     private Vector3 movementDirection;
     private Vector3 lookDirection;
     public float RotationSpeed;
 
-    private bool isWalking;
 
-    void Start()
+    public override void Start()
     {
-        anim = GetComponent<Animator>();
-        
+        base.Start();
 
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        ThrowWeapon();
-
+        base.Update();
         Move();
     }
 
@@ -37,32 +33,30 @@ public class Player : Character
         float verticalInput = joystick.Vertical;
         lookDirection = new Vector3(horizontalInput, 0, verticalInput);
 
+        if (Vector3.Distance(lookDirection, Vector3.zero) < 0.1f)
+        {
+            SwitchState(IdleState);
+            Anim.SetTrigger("isIdle");
+            Attack();
+            return;
+        }
+
+
         Vector3 targetPosition = m_transform.position + lookDirection;
         m_transform.position = Vector3.MoveTowards(m_transform.position, targetPosition, 3 * Time.deltaTime);
 
-        if (lookDirection != Vector3.zero)
+        if (Vector3.Distance(lookDirection, Vector3.zero) > 0.1f)
         {
+            SwitchState(PatrolState);
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
             m_transform.rotation = Quaternion.RotateTowards(m_transform.rotation, toRotation, RotationSpeed * Time.deltaTime);
+            Anim.SetTrigger("isRun");
         }
-        anim.SetTrigger("isRun");
-
-
-
+        
+        
     }
-    private void ThrowWeapon()
-    {
-        Debug.Log(AttackRange.TargetSet);
-        if (AttackRange.enemiesInRange == null) return;
-        if (!Input.GetKeyDown(KeyCode.T)) return;
-        if (!AttackRange.TargetSet) return;
-
-        GameObject ThrewWeapon = Instantiate(Weapon, m_transform.position, Quaternion.identity);
-        ThrewWeapon.GetComponent<WeaponScript>().Target = AttackRange.enemiesInRange[0];
-        anim.SetTrigger("isAttack");
-
-    }
+    
 
 
 

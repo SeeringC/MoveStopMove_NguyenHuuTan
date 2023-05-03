@@ -5,25 +5,49 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
 
+    BaseState currentState;
+    public IdleState IdleState = new IdleState();
+    public PatrolState PatrolState = new PatrolState();
+    public AttackState AttackState = new AttackState();
+
     public Transform m_transform;
     public AttackRangeScript AttackRange;
-    public GameObject Weapon;
+    public Animator Anim;
 
-    private void Start()
+
+    public virtual void Start()
     {
+        Anim = GetComponent<Animator>();
+        currentState = IdleState;
+        currentState.EnterState(this);
+
     }
     public virtual void  Update()
     {
+        currentState.UpdateState(this);
     }
 
-    
+    public void SwitchState(BaseState state)
+    {
+        currentState = state;
+        state.EnterState(this);
+    }
+
     private void OnDestroy()
     {
         AttackRange.enemiesInRange.Remove(this.gameObject);
     }
 
-    private void Attack()
+    protected void Attack()
     {
-        
+        SwitchState(AttackState);
+        Debug.Log(AttackRange.TargetSet);
+        if (AttackRange.enemiesInRange == null) return;
+        //if (!Input.GetKeyDown(KeyCode.T)) return;
+        if (!AttackRange.TargetSet) return;
+
+        AttackRange.ThrowWeapon();
+        Anim.SetTrigger("isAttack");
+
     }
 }
