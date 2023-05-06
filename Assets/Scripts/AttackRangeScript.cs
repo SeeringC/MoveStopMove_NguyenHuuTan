@@ -39,7 +39,6 @@ public class AttackRangeScript : MonoBehaviour
 
         if (enemiesInRange.Count == 0)
         {
-            
 
             TargetSet = false;
         }
@@ -53,12 +52,12 @@ public class AttackRangeScript : MonoBehaviour
         weaponScript.ParentAttackRing = this.gameObject;
         weaponScript.Target = enemiesInRange[0];
         
-        yield return Cache.GetWFS(4);
+        yield return Cache.GetWFS(2);
 
         if (enemiesInRange.Count > 0)
         {
             weaponScript.Target = enemiesInRange[0];
-
+            TargetSet = true;
         }
     }
 

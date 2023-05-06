@@ -5,6 +5,6 @@ using UnityEngine.UIElements;
 
 public abstract class BaseState
 {
-    public abstract void EnterState(Character character);
-    public abstract void UpdateState(Character character);
+    public abstract void EnterState(Bot bot);
+    public abstract void UpdateState(Bot bot);
 }

@@ -35,8 +35,8 @@ public class Player : Character
 
         if (Vector3.Distance(lookDirection, Vector3.zero) < 0.1f)
         {
-            SwitchState(IdleState);
             Anim.SetTrigger(ConstantClass.AnimIsIdle);
+
             Attack();
             return;
         }
@@ -47,7 +47,7 @@ public class Player : Character
 
         if (Vector3.Distance(lookDirection, Vector3.zero) > 0.1f)
         {
-            SwitchState(PatrolState);
+            
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
             m_transform.rotation = Quaternion.RotateTowards(m_transform.rotation, toRotation, RotationSpeed * Time.deltaTime);

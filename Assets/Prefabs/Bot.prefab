@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &53820874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53820875}
+  m_Layer: 15
+  m_Name: WeaponSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &53820875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53820874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 60973816993392190}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &301211329163298207
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +943,7 @@ Transform:
   - {fileID: 7896641506952669294}
   - {fileID: 5217411775103708696}
   - {fileID: 7982905058333426979}
+  - {fileID: 53820875}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -982,10 +1014,11 @@ MonoBehaviour:
   AttackRange: {fileID: 8567669202692403549}
   Anim: {fileID: 0}
   Agent: {fileID: 8651411208201993890}
-  Floor: {fileID: 0}
+  Floor: {fileID: 94061199626413807, guid: dda3e037f8944c24eb0187a4f97f5d1f, type: 3}
   MapBound:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   DestinationSet: 0
   AttackAble: 0
 --- !u!195 &8651411208201993890
@@ -2256,6 +2289,7 @@ MonoBehaviour:
   TargetSet: 0
   enemiesInRange: []
   Weapon: {fileID: 0}
+  WeaponSpawnLocation: {fileID: 53820875}
 --- !u!1 &8174333601660309104
 GameObject:
   m_ObjectHideFlags: 0
