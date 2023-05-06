@@ -14,9 +14,9 @@ public class Player : Character
     public float RotationSpeed;
 
 
-    public override void Start()
+    public override void OnInit()
     {
-        base.Start();
+        base.OnInit();
 
     }
 
@@ -36,7 +36,7 @@ public class Player : Character
         if (Vector3.Distance(lookDirection, Vector3.zero) < 0.1f)
         {
             SwitchState(IdleState);
-            Anim.SetTrigger("isIdle");
+            Anim.SetTrigger(ConstantClass.AnimIsIdle);
             Attack();
             return;
         }
@@ -51,7 +51,7 @@ public class Player : Character
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
             m_transform.rotation = Quaternion.RotateTowards(m_transform.rotation, toRotation, RotationSpeed * Time.deltaTime);
-            Anim.SetTrigger("isRun");
+            Anim.SetTrigger(ConstantClass.AnimIsRun);
         }
         
         

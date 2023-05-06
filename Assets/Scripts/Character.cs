@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
 
     BaseState currentState;
@@ -14,10 +14,22 @@ public class Character : MonoBehaviour
     public AttackRangeScript AttackRange;
     public Animator Anim;
 
+    public override void OnDespawn()
+    {
 
+    }
+
+    public override void OnInit()
+    {
+        m_transform = GetComponent<Transform>();
+        AttackRange = transform.GetChild(0).GetComponent<AttackRangeScript>();
+
+
+    }
     public virtual void Start()
     {
         Anim = GetComponent<Animator>();
+
         currentState = IdleState;
         currentState.EnterState(this);
 
@@ -33,21 +45,17 @@ public class Character : MonoBehaviour
         state.EnterState(this);
     }
 
-    private void OnDestroy()
-    {
-        AttackRange.enemiesInRange.Remove(this.gameObject);
-    }
+  
 
     protected void Attack()
     {
         SwitchState(AttackState);
-        Debug.Log(AttackRange.TargetSet);
+        
         if (AttackRange.enemiesInRange == null) return;
-        //if (!Input.GetKeyDown(KeyCode.T)) return;
         if (!AttackRange.TargetSet) return;
 
-        AttackRange.ThrowWeapon();
-        Anim.SetTrigger("isAttack");
+        AttackRange.CThrowWeapon(); 
+        Anim.SetTrigger(ConstantClass.AnimIsAttack);
 
     }
 }

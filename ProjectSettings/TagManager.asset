@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Missile
   - Bot
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -16,13 +17,13 @@ TagManager:
   - 
   - 
   - 
+  - Wall
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - Character
   - 
   - 
   - 
