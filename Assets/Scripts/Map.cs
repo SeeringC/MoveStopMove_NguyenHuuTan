@@ -28,7 +28,7 @@ public class Map : MonoBehaviour
     public void GetRandomPosition()
     {
         RandomSpawnLocation.x = Random.Range(MapBound.min.x, MapBound.max.x);
-        RandomSpawnLocation.y = MapBound.max.y;
+        RandomSpawnLocation.y = MapBound.max.y + 1f;
         RandomSpawnLocation.z = Random.Range(MapBound.min.z, MapBound.max.z);
     }
 

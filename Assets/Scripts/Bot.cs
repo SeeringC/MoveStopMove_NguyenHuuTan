@@ -19,15 +19,7 @@ public class Bot : Character
     public bool DestinationSet = false;
     public bool AttackAble = false;
 
-    public override void OnDespawn()
-    {
-
-    }
-
-    public override void OnInit()
-    {
-
-    }
+    
     public override void Start()
     {
         base.Start();
@@ -35,10 +27,9 @@ public class Bot : Character
         currentState = IdleState;
         currentState.EnterState(this);
 
-
         MapBound = Floor.GetComponent<Renderer>().bounds;
 
-        MoveAgent();
+        SwitchState(PatrolState);
     }
     public override void Update()
     {
@@ -49,16 +40,17 @@ public class Bot : Character
         Debug.Log("currnt pos is" + m_transform.position);
         Debug.Log("currnt dest is" + destination);
 
-
-        //MoveAgent();
-        //CheckToAttack();
         Debug.Log(currentState);
     }
-
-    public void MoveAgent()
+    public override void OnDespawn()
     {
-        SwitchState(PatrolState);
+
     }
+
+    public override void OnInit()
+    {
+
+    }   
     public void GetRandomPosition()
     {
         destination.x = Random.Range(MapBound.min.x, MapBound.max.x);
@@ -67,12 +59,6 @@ public class Bot : Character
         DestinationSet = true;
     }
 
-    //public void CheckToAttack()
-    //{
-    //    if (AttackRange.enemiesInRange.Count == 0) return;
-    //    SwitchState(AttackState);
-
-    //}
     public void SwitchState(BaseState state)
     {
         currentState = state;

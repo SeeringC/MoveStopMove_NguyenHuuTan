@@ -33,8 +33,7 @@ public class WeaponScript : GameUnit
             ParentAttackRing.GetComponent<AttackRangeScript>().enemiesInRange.Remove(other.gameObject);
             other.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
-            //Destroy(other.gameObject);
-            //Destroy(this.gameObject);
+            
         }
     }
 
@@ -47,6 +46,7 @@ public class WeaponScript : GameUnit
         }
 
         if (Vector3.Distance(transform.position, targetPosition) > 0.1f) return;
+        ParentAttackRing.GetComponent<AttackRangeScript>().TargetSet = false;
         this.gameObject.SetActive(false);
     }
      

@@ -34,10 +34,6 @@ public class Character : GameUnit
     {
     }
 
-    
-
-  
-
     public void Attack()
     {
         //Debug.Log(AttackRange.TargetSet);

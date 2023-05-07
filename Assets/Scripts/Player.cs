@@ -5,56 +5,61 @@ using UnityEngine;
 
 public class Player : Character
 {
+
     [SerializeField] private FloatingJoystick joystick;
     [SerializeField] private Rigidbody rb;
 
+    PlayerBaseState currentState;
+    public PlayerIdleState IdleState = new PlayerIdleState();
+    public PlayerPatrolState PatrolState = new PlayerPatrolState();
+    public PlayerAttackState AttackState = new PlayerAttackState();
 
-    private Vector3 movementDirection;
-    private Vector3 lookDirection;
+    public Vector3 lookDirection;
     public float RotationSpeed;
+    public float horizontalInput;
+    public float verticalInput;
 
+    public override void Start()
+    {
+        base.Start();
+        currentState = IdleState;
+        currentState.EnterState(this);
+        SwitchState(IdleState);
+    }
+   
+    public override void Update()
+    {
+        base.Update();
+        GetJoystickInput();
+        currentState.UpdateState(this);
 
+    }
     public override void OnInit()
     {
         base.OnInit();
 
     }
-
-    // Update is called once per frame
-    public override void Update()
+    public void SwitchState(PlayerBaseState state)
     {
-        base.Update();
-        Move();
+        currentState = state;
+        state.EnterState(this);
     }
-
-    private void Move()
+    private void GetJoystickInput()
     {
-        float horizontalInput = joystick.Horizontal;
-        float verticalInput = joystick.Vertical;
+        horizontalInput = joystick.Horizontal;
+        verticalInput = joystick.Vertical;
         lookDirection = new Vector3(horizontalInput, 0, verticalInput);
+
 
         if (Vector3.Distance(lookDirection, Vector3.zero) < 0.1f)
         {
-            Anim.SetTrigger(ConstantClass.AnimIsIdle);
-
-            Attack();
-            return;
+            SwitchState(IdleState);
         }
-
-
-        Vector3 targetPosition = m_transform.position + lookDirection;
-        m_transform.position = Vector3.MoveTowards(m_transform.position, targetPosition, 3 * Time.deltaTime);
 
         if (Vector3.Distance(lookDirection, Vector3.zero) > 0.1f)
         {
-            
-            Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-
-            m_transform.rotation = Quaternion.RotateTowards(m_transform.rotation, toRotation, RotationSpeed * Time.deltaTime);
-            Anim.SetTrigger(ConstantClass.AnimIsRun);
+            SwitchState(PatrolState);
         }
-        
-        
     }
     
 
