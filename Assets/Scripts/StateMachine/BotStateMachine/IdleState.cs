@@ -8,24 +8,22 @@ public class IdleState : BaseState
     public override void EnterState(Bot bot)
     {
         bot.destination = bot.m_transform.position;
+        bot.Anim.SetTrigger(ConstantClass.AnimIsIdle);
 
-        if (bot.AttackRange.enemiesInRange.Count == 0) return;
+        if (bot.characterList.Count == 0) return;
         if (!bot.AttackRange.TargetSet) return;
 
         bot.SwitchState(bot.AttackState);
         
-        //bot.SwitchState(bot.PatrolState);
-        //bot.GetRandomPosition();
     }
 
     public override void UpdateState(Bot bot)
     {
-        //bot.Anim.SetTrigger(ConstantClass.AnimIsIdle);
+
         CountDown -= Time.deltaTime;
-        if (CountDown <= 0)
+        if (CountDown <= 0.1f)
         {
             bot.SwitchState(bot.PatrolState);
-            //bot.GetRandomPosition();
         }
 
     }

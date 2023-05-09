@@ -10,6 +10,7 @@ public class Bot : Character
     public IdleState IdleState = new IdleState();
     public PatrolState PatrolState = new PatrolState();
     public AttackState AttackState = new AttackState();
+    public DieState DieState = new DieState();
 
     public NavMeshAgent Agent;
     public GameObject Floor;
@@ -24,37 +25,36 @@ public class Bot : Character
     {
         base.Start();
 
-        currentState = IdleState;
+        currentState = PatrolState;
         currentState.EnterState(this);
 
         MapBound = Floor.GetComponent<Renderer>().bounds;
 
-        SwitchState(PatrolState);
     }
     public override void Update()
     {
         base.Update();
 
         currentState.UpdateState(this);
-        Debug.Log("distance is" + Vector3.Distance(m_transform.position, destination));
-        Debug.Log("currnt pos is" + m_transform.position);
-        Debug.Log("currnt dest is" + destination);
+        //Debug.Log("distance is" + Vector3.Distance(m_transform.position, destination));
+        //Debug.Log("currnt pos is" + m_transform.position);
+        //Debug.Log("currnt dest is" + destination);
 
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
     }
     public override void OnDespawn()
     {
-
+        base.OnDespawn();
     }
 
     public override void OnInit()
     {
-
+        base.OnInit();
     }   
     public void GetRandomPosition()
     {
         destination.x = Random.Range(MapBound.min.x, MapBound.max.x);
-        destination.y = MapBound.max.y;
+        destination.y = MapBound.max.y - 1f;
         destination.z = Random.Range(MapBound.min.z, MapBound.max.z);
         DestinationSet = true;
     }

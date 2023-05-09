@@ -13,6 +13,7 @@ public class Player : Character
     public PlayerIdleState IdleState = new PlayerIdleState();
     public PlayerPatrolState PatrolState = new PlayerPatrolState();
     public PlayerAttackState AttackState = new PlayerAttackState();
+    public PlayerDieState DieState = new PlayerDieState();
 
     public Vector3 lookDirection;
     public float RotationSpeed;
@@ -38,6 +39,11 @@ public class Player : Character
     {
         base.OnInit();
 
+    }
+
+    public override void OnDespawn()
+    {
+        base.OnDespawn();
     }
     public void SwitchState(PlayerBaseState state)
     {

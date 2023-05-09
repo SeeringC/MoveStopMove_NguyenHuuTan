@@ -7,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState(Player player)
     {
 
-        if (player.AttackRange.enemiesInRange.Count > 0)
+        if (player.characterList.Count > 0)
         {
             player.SwitchState(player.AttackState);
         }

@@ -10,5 +10,6 @@ public class ConstantClass
     public const string AnimIsAttack = "isAttack";
     public const string AnimIsIdle = "isIdle";
     public const string AnimIsRun = "isRun";
-    
+    public const string AnimIsDead = "isDead";
+
 }

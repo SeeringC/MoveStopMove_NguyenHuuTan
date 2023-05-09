@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    public float CountDownToAttack = 4f;
+    public float CountDownToAttack = 2f;
     public override void EnterState(Bot bot)
     {
         bot.destination = bot.m_transform.position;
@@ -19,7 +19,7 @@ public class AttackState : BaseState
     {
         
         CountDownToAttack -= Time.deltaTime;
-        if (CountDownToAttack <= 0f)
+        if (CountDownToAttack <= 0.1f)
         {
             bot.SwitchState(bot.PatrolState);
         }

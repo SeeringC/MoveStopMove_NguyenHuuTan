@@ -14,9 +14,8 @@ public class PatrolState : BaseState
             bot.GetRandomPosition();
         }
 
-      
-
         bot.Agent.SetDestination(bot.destination);
+        bot.DestinationSet = true;
     }
 
     public override void UpdateState(Bot bot)
@@ -28,7 +27,7 @@ public class PatrolState : BaseState
             //bot.GetRandomPosition();
         }
 
-        if (bot.AttackRange.enemiesInRange.Count == 0) return;
+        if (bot.AttackRange.character.characterList.Count == 0) return;
         if (!bot.AttackRange.TargetSet) return;
 
         bot.SwitchState(bot.AttackState);

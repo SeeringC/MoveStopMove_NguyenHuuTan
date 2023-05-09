@@ -1010,6 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 0
+  characterList: []
   m_transform: {fileID: 60973816993392190}
   AttackRange: {fileID: 8567669202692403549}
   Anim: {fileID: 0}
@@ -2285,7 +2286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 7982905058333426979}
-  Character: {fileID: 3928201578320450605}
+  character: {fileID: 3928201578320450604}
   TargetSet: 0
   enemiesInRange: []
   Weapon: {fileID: 0}

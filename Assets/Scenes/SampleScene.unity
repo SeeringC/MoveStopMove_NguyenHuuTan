@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 64095651}
-  Character: {fileID: 98276761}
+  character: {fileID: 98276762}
   TargetSet: 0
   enemiesInRange: []
   Weapon: {fileID: 1882216502}
@@ -206,12 +206,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 0
+  characterList: []
   m_transform: {fileID: 98276764}
   AttackRange: {fileID: 64095652}
   Anim: {fileID: 0}
   joystick: {fileID: 1587133384}
   rb: {fileID: 98276766}
+  lookDirection: {x: 0, y: 0, z: 0}
   RotationSpeed: 720
+  horizontalInput: 0
+  verticalInput: 0
 --- !u!4 &98276764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
@@ -1938,18 +1942,6 @@ PrefabInstance:
     - target: {fileID: 6272173906517367255, guid: fbdc9dc4b7915ca48a2c46c1fd8eb19c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6272173906989044829, guid: fbdc9dc4b7915ca48a2c46c1fd8eb19c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6272173906989044829, guid: fbdc9dc4b7915ca48a2c46c1fd8eb19c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6272173906989044829, guid: fbdc9dc4b7915ca48a2c46c1fd8eb19c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbdc9dc4b7915ca48a2c46c1fd8eb19c, type: 3}

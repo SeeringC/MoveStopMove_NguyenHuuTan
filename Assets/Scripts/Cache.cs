@@ -20,26 +20,26 @@ public class Cache
     //------------------------------------------------------------------------------------------------------------
 
 
-    //private static Dictionary<Collider, Burger> m_Burger = new Dictionary<Collider, Burger>();
+    private static Dictionary<Collider, Character> m_Character = new Dictionary<Collider, Character>();
 
-    //public static Burger GetBurger(Collider key)
-    //{
-    //    if (!m_Burger.ContainsKey(key))
-    //    {
-    //        Burger burger = key.GetComponent<Burger>();
+    public static Character GetCharacter(Collider key)
+    {
+        if (!m_Character.ContainsKey(key))
+        {
+            Character burger = key.GetComponent<Character>();
 
-    //        if (burger != null)
-    //        {
-    //            m_Burger.Add(key, burger);
-    //        }
-    //        else
-    //        {
-    //            return null;
-    //        }
-    //    }
+            if (burger != null)
+            {
+                m_Character.Add(key, burger);
+            }
+            else
+            {
+                return null;
+            }
+        }
 
-    //    return m_Burger[key];
-    //}
+        return m_Character[key];
+    }
 
 
 }

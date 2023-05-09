@@ -12,6 +12,19 @@ public class WeaponScript : GameUnit
     {
         OnInit();
     }
+    private void Update()
+    {
+
+        if (Target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 10 * Time.deltaTime);
+        }
+
+        if (Vector3.Distance(transform.position, targetPosition) > 0.1f) return;
+        ParentAttackRing.GetComponent<AttackRangeScript>().TargetSet = false;
+        this.gameObject.SetActive(false);
+    }
+
     public override void OnDespawn()
     {
        
@@ -28,27 +41,16 @@ public class WeaponScript : GameUnit
     {
         if (other.CompareTag(ConstantClass.TagBot) || other.CompareTag(ConstantClass.TagPlayer))
         {
-            
-            
-            ParentAttackRing.GetComponent<AttackRangeScript>().enemiesInRange.Remove(other.gameObject);
-            other.gameObject.SetActive(false);
+
+            //ParentAttackRing.GetComponent<AttackRangeScript>().enemiesInRange.Remove(other.GetComponent<Character>());
+            other.GetComponent<Character>().Despawn();
+            //other.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
             
         }
     }
 
-    private void Update()
-    {
-        
-        if (Target != null)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 10 * Time.deltaTime);
-        }
-
-        if (Vector3.Distance(transform.position, targetPosition) > 0.1f) return;
-        ParentAttackRing.GetComponent<AttackRangeScript>().TargetSet = false;
-        this.gameObject.SetActive(false);
-    }
+   
      
    
 
