@@ -49,6 +49,7 @@ public class Character : GameUnit
 
     public IEnumerator CDespawn()
     {
+        
         yield return Cache.GetWFS(3);
         Anim.SetTrigger(ConstantClass.AnimIsDead);
         this.gameObject.SetActive(false);
@@ -76,6 +77,7 @@ public class Character : GameUnit
     public void Despawn()
     {
         gameObject.SetActive(false);
+        //StartCoroutine(CDespawn()); 
         onDespawnCallback?.Invoke(this);
 
         /// Clear all function in callback

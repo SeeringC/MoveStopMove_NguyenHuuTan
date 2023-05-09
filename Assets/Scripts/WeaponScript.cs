@@ -43,7 +43,8 @@ public class WeaponScript : GameUnit
         {
 
             //ParentAttackRing.GetComponent<AttackRangeScript>().enemiesInRange.Remove(other.GetComponent<Character>());
-            other.GetComponent<Character>().Despawn();
+            Character tempChar = Cache.GetCharacter(other);
+            tempChar.Despawn();
             //other.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
             
