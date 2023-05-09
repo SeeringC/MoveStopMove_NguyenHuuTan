@@ -12,8 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a750ac13a8b804a8924984ad0b2bcd, type: 3}
   m_Name: New Weapon Data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  WeaponName: 
-  WeaponType: 
-  Damage: 0
-  AttackRange: 0
