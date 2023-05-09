@@ -13,3 +13,4 @@ public class WeaponData : ScriptableObject
     public int Damage;
     public float AttackRange;
 }
+
