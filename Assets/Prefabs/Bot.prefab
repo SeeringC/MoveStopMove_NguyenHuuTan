@@ -596,7 +596,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 209b8e5c5ab2acd4fa06e5db76d94d8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -994,9 +994,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2.8022625
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.9011313, z: 0}
 --- !u!114 &3928201578320450604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,11 +1009,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333523ba6ab62594aba6c92e6a6fe314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
+  poolType: 1
   characterList: []
   m_transform: {fileID: 60973816993392190}
   AttackRange: {fileID: 8567669202692403549}
   Anim: {fileID: 0}
+  weapon: 1
+  weaponData: {fileID: 11400000, guid: ff446529cc4384141bc53c7373e36a5a, type: 2}
+  pants: 0
+  pantsData: {fileID: 11400000, guid: 9e207bce0b782d54784729254aabcc58, type: 2}
+  GameObjectPants: {fileID: 2195207102803619658}
+  Head: {fileID: 1071905657570545228}
+  hairData: {fileID: 11400000, guid: 3804afb8488d7b84e9fcb4ccc505c23b, type: 2}
+  hair: 1
+  LeftHand: {fileID: 8172459755511591558}
+  shieldData: {fileID: 11400000, guid: 6afd694cc966e3c4185335b1dbff817b, type: 2}
+  shield: 0
   Agent: {fileID: 8651411208201993890}
   Floor: {fileID: 94061199626413807, guid: dda3e037f8944c24eb0187a4f97f5d1f, type: 3}
   MapBound:
@@ -2285,11 +2296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97277fda7e149f448bb13f23989c66f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponType: 0
   m_transform: {fileID: 7982905058333426979}
   character: {fileID: 3928201578320450604}
   TargetSet: 0
-  enemiesInRange: []
-  Weapon: {fileID: 0}
   WeaponSpawnLocation: {fileID: 53820875}
 --- !u!1 &8174333601660309104
 GameObject:

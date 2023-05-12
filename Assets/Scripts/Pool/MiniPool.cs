@@ -2,64 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniPool<T>
+public class MiniPool<T> where T : Component
 {
-    private List<GameObject> list = new List<GameObject>();
-    private Dictionary<GameObject,T> dict = new Dictionary<GameObject,T>();
-    GameObject prefab;
+    private Queue<T> pools = new Queue<T>();
+    private List<T> listActives = new List<T>();
+
+    T prefab;
     Transform parent;
 
-    public void OnInit(GameObject prefab, Transform parent = null)
+    public void OnInit(T prefab, int amount, Transform parent = null)
     {
         this.prefab = prefab;
         this.parent = parent;
+
+        for (int i = 0; i < amount; i++)
+        {
+            Despawn(GameObject.Instantiate(prefab, parent));
+        }
     }
 
     public T Spawn(Vector3 pos, Quaternion rot)
     {
-        GameObject go = null;
+        T go = pools.Count > 0 ? pools.Dequeue() : GameObject.Instantiate(prefab, parent);
 
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (!list[i].activeInHierarchy)
-            {
-                go = list[i];
-                break;
-            }
-        }
-
-        if (go == null)
-        {
-            go = GameObject.Instantiate(prefab, parent);
-            list.Add(go);
-            dict.Add(go, go.GetComponent<T>());
-        }
+        listActives.Add(go);
 
         go.transform.SetPositionAndRotation(pos, rot);
-        go.SetActive(true);
+        go.gameObject.SetActive(true);
 
-        return dict[go];
+        return go;
+    }
+    public T Spawn()
+    {
+        T go = pools.Count > 0 ? pools.Dequeue() : GameObject.Instantiate(prefab, parent);
+
+        listActives.Add(go);
+        go.gameObject.SetActive(true);
+
+        return go;
+    }
+
+    public void Despawn(T obj)
+    {
+        if (obj.gameObject.activeSelf)
+        {
+            obj.gameObject.SetActive(false);
+            pools.Enqueue(obj);
+            listActives.Remove(obj);
+        }
     }
 
     public void Collect()
     {
-        for (int i = 0; i < list.Count; i++)
+        while (listActives.Count > 0)
         {
-            if (list[i].activeInHierarchy)
-            {
-                list[i].SetActive(false);
-            }
+            Despawn(listActives[0]);
         }
     }
 
     public void Release()
     {
-        for (int i = 0; i < list.Count; i++)
-        {
-            GameObject.Destroy(list[i]);
-        }
+        Collect();
 
-        list.Clear();
+        while (pools.Count > 0)
+        {
+            GameObject.Destroy(pools.Dequeue().gameObject);
+        }
     }
 
 }

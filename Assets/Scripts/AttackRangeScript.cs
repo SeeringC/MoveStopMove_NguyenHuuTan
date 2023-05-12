@@ -7,20 +7,22 @@ using UnityEngine.UIElements;
 public class AttackRangeScript : MonoBehaviour
 {
 
+    public PoolType WeaponType;
     public Transform m_transform;
     public Character character;
     public bool TargetSet = false;
     //public List<Character> enemiesInRange = new();
-    public GameObject Weapon;
-    public Transform WeaponSpawnLocation;
-    //private void Start()
-    //{
 
-    //}
+    public Transform WeaponSpawnLocation;
+    private void Start()
+    {  
+        
+    }
     //private void Update()
     //{
 
     //}
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(ConstantClass.TagBot) || other.CompareTag(ConstantClass.TagPlayer))
@@ -56,16 +58,16 @@ public class AttackRangeScript : MonoBehaviour
     public IEnumerator ThrowWeapon()
     {
         TargetSet = false;
-        character.transform.LookAt(character.characterList[0].transform);
-        WeaponScript weaponScript = SimplePool.Spawn<WeaponScript>(PoolType.Brick, WeaponSpawnLocation.position, Quaternion.identity);
+        character.m_transform.LookAt(character.characterList[0].m_transform);
+        WeaponScript weaponScript = SimplePool.Spawn<WeaponScript>(WeaponType, WeaponSpawnLocation.position, Quaternion.identity);
         weaponScript.ParentAttackRing = this.gameObject;
-        weaponScript.Target = character.characterList[0].GetComponent<Character>().gameObject;
+        weaponScript.Target = character.characterList[0].gameObject;
         
         yield return Cache.GetWFS(2);
 
         if (character.characterList.Count > 0)
         {
-            weaponScript.Target = character.characterList[0].GetComponent<Character>().gameObject;
+            weaponScript.Target = character.characterList[0].gameObject;
             TargetSet = true;
         }
     }

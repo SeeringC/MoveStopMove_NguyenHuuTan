@@ -7,7 +7,7 @@ public class IdleState : BaseState
     public float CountDown = 2f;
     public override void EnterState(Bot bot)
     {
-        bot.destination = bot.m_transform.position;
+        //bot.Agent.SetDestination(bot.m_transform.position);
         bot.Anim.SetTrigger(ConstantClass.AnimIsIdle);
 
         if (bot.characterList.Count == 0) return;
@@ -19,6 +19,7 @@ public class IdleState : BaseState
 
     public override void UpdateState(Bot bot)
     {
+        bot.destination = bot.m_transform.position;
 
         CountDown -= Time.deltaTime;
         if (CountDown <= 0.1f)

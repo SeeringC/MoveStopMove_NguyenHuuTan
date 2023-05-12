@@ -14,13 +14,14 @@ public class WeaponScript : GameUnit
     }
     private void Update()
     {
+        Vector3 targetPosition2 = new Vector3(targetPosition.x, targetPosition.y + 1f, targetPosition.z);
 
         if (Target != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 10 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition2, 10 * Time.deltaTime);
         }
 
-        if (Vector3.Distance(transform.position, targetPosition) > 0.1f) return;
+        if (Vector3.Distance(transform.position, targetPosition2) > 0.1f) return;
         ParentAttackRing.GetComponent<AttackRangeScript>().TargetSet = false;
         this.gameObject.SetActive(false);
     }
@@ -34,14 +35,14 @@ public class WeaponScript : GameUnit
     {
         
         targetPosition = Target.transform.position;
-        Debug.Log(targetPosition);
+        //Debug.Log(targetPosition);
         
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(ConstantClass.TagBot) || other.CompareTag(ConstantClass.TagPlayer))
         {
-
+            Debug.Log("hit");
             //ParentAttackRing.GetComponent<AttackRangeScript>().enemiesInRange.Remove(other.GetComponent<Character>());
             Character tempChar = Cache.GetCharacter(other);
             tempChar.Despawn();

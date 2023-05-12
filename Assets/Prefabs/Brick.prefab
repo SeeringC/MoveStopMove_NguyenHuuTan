@@ -59,8 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a31b642312f564cadd3085de1ff946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 1
+  poolType: 0
   Target: {fileID: 0}
+  ParentAttackRing: {fileID: 0}
 --- !u!1 &8380236157708422518
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,15 +17,15 @@ public class Player : Character
 
     public Vector3 lookDirection;
     public float RotationSpeed;
-    public float horizontalInput;
-    public float verticalInput;
+    private float horizontalInput;
+    private float verticalInput;
 
     public override void Start()
     {
         base.Start();
         currentState = IdleState;
         currentState.EnterState(this);
-        SwitchState(IdleState);
+        //SwitchState(IdleState);
     }
    
     public override void Update()
@@ -38,13 +38,17 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-
     }
 
     public override void OnDespawn()
     {
         base.OnDespawn();
     }
+    public void Setup(FloatingJoystick floatingJoystick)
+    {
+        joystick = floatingJoystick;
+    }
+
     public void SwitchState(PlayerBaseState state)
     {
         currentState = state;
@@ -67,8 +71,5 @@ public class Player : Character
             SwitchState(PatrolState);
         }
     }
-    
-
-
 
 }

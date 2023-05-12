@@ -6,40 +6,40 @@ using UnityEngine;
 [CreateAssetMenu]
 public class WeaponData : ScriptableObject
 {
-    public List<WeaponDataList> weapons;
-    public WeaponDataList GetData(int WeaponIndex)
+    public List<WeaponAttribute> weapons;
+    public WeaponAttribute GetData(Weapon weapon)
     {
-        return weapons[WeaponIndex];
+        return weapons[(int)weapon];
     }
 
 }
 
 [Serializable]
-public class WeaponDataList
+public class WeaponAttribute
 {
     public GameObject Prefab;
     public string WeaponName;
     //public string WeaponType;
-    public int Damage;
     public float AttackRange;
-    public int Price;   
-   
+    public int Price;
+    public PoolType WeaponType;
+    
 }
 
 public enum Weapon
 {
-    Arrow = 0,
-    Axe_0 = 1,
-    Axe_1 = 2,
-    Boomerang = 3,
-    Candy_0 = 4,
-    Candy_1 = 5,
-    Candy_2 = 6,
-    Candy_4 = 7,
-    Hammer = 8,
-    Knife = 9,
-    Uzi = 10,
-    Z = 11,
+    Arrow,
+    Axe_0,
+    Axe_1,
+    Boomerang,
+    Candy_0,
+    Candy_1,
+    Candy_2,
+    Candy_4,
+    Hammer,
+    Knife,
+    Uzi,
+    Z,
 }
 
 

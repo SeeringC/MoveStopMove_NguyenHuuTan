@@ -36,6 +36,7 @@ public class Bot : Character
         base.Update();
 
         currentState.UpdateState(this);
+        Debug.Log(currentState);
         //Debug.Log("distance is" + Vector3.Distance(m_transform.position, destination));
         //Debug.Log("currnt pos is" + m_transform.position);
         //Debug.Log("currnt dest is" + destination);
@@ -65,14 +66,14 @@ public class Bot : Character
         state.EnterState(this);
     }
 
-    public IEnumerator ResumeAgent()
-    {
-        yield return Cache.GetWFS(3);
-        Agent.isStopped = false;
-    }
+    //public IEnumerator ResumeAgent()
+    //{
+    //    yield return Cache.GetWFS(3);
+    //    Agent.isStopped = false;
+    //}
     
-    public void CResumeAgent()
-    {
-        StartCoroutine(ResumeAgent());
-    }
+    //public void CResumeAgent()
+    //{
+    //    StartCoroutine(ResumeAgent());
+    //}
 }

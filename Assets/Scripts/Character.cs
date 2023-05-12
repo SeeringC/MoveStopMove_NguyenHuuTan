@@ -6,14 +6,53 @@ using UnityEngine.UIElements;
 
 public class Character : GameUnit
 {
-
+    
     public List<Character> characterList = new();
     public UnityAction<Character> onDespawnCallback;
 
     public Transform m_transform;
     public AttackRangeScript AttackRange;
+
     public Animator Anim;
 
+    public Weapon weapon;
+    public WeaponData weaponData;
+
+    public Pants pants;
+    public PantsData pantsData;
+    public GameObject GameObjectPants;
+
+    public Transform Head;
+    private GameObject Hair;
+    public HairData hairData;
+    public Hair hair;
+
+    public Transform LeftHand;
+    private GameObject Shield;
+    public ShieldData shieldData;
+    public Shield shield;
+
+    public void ChangeWeapon(Weapon weapon)
+    {
+        AttackRange.WeaponType = weaponData.GetData(weapon).WeaponType;
+    }
+
+    public void ChangePants(Pants pants)
+    {
+        GameObjectPants.GetComponent<Renderer>().sharedMaterial = pantsData.GetData(pants).material;
+    }
+
+    public void ChangeHair(Hair hair)
+    {
+        Hair = hairData.GetData(hair).Prefab;
+        Instantiate(Hair, Head);
+    }
+
+    public void ChangeShield(Shield shield)
+    {
+        Shield = shieldData.GetData(shield).Prefab;
+        Instantiate(Shield, LeftHand);
+    }
 
     public virtual void Start()
     {
@@ -32,7 +71,10 @@ public class Character : GameUnit
         m_transform = GetComponent<Transform>();
         AttackRange = transform.GetChild(3).GetComponent<AttackRangeScript>();
         Anim = GetComponent<Animator>();
-
+        ChangeWeapon(weapon);
+        ChangePants(pants);
+        ChangeHair(hair);
+        ChangeShield(shield);
     }
 
 
@@ -43,7 +85,6 @@ public class Character : GameUnit
         if (characterList.Count == 0) return;
         if (!AttackRange.TargetSet) return;
         Anim.SetTrigger(ConstantClass.AnimIsAttack);
-
         AttackRange.CThrowWeapon();
     }
 
@@ -83,4 +124,5 @@ public class Character : GameUnit
         /// Clear all function in callback
         onDespawnCallback = null;
     }
+
 }

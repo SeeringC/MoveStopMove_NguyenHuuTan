@@ -27,9 +27,9 @@ public class PatrolState : BaseState
             //bot.GetRandomPosition();
         }
 
-        if (bot.AttackRange.character.characterList.Count == 0) return;
+        if (bot.characterList.Count == 0) return;
         if (!bot.AttackRange.TargetSet) return;
-
+    
         bot.SwitchState(bot.AttackState);
 
     }

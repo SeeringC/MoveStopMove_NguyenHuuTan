@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
 public static class ParticlePool
 {
     const int DEFAULT_POOL_SIZE = 3;
@@ -14,12 +15,8 @@ public static class ParticlePool
         {
             if (root == null)
             {
-                root = GameObject.FindObjectOfType<PoolControler>().transform;
-                if (root == null)
-                {
-                    root = new GameObject().transform;
-                    root.name = "ParticlePool";
-                }
+                PoolControler controler = GameObject.FindObjectOfType<PoolControler>();
+                root = controler != null ? controler.transform : new GameObject("ParticlePool").transform;
             }
 
             return root;
@@ -53,6 +50,16 @@ public static class ParticlePool
                 //save prefab
                 UnityEditor.Undo.RegisterCompleteObjectUndo(prefab, "Fix To Not Loop");
                 Debug.Log(prefab.name + " ~ Fix To Not Loop");
+            } 
+            
+            if (prefab.main.playOnAwake)
+            {
+                var main = prefab.main;
+                main.playOnAwake = false;
+
+                //save prefab
+                UnityEditor.Undo.RegisterCompleteObjectUndo(prefab, "Fix To Not PlayAwake");
+                Debug.Log(prefab.name + " ~ Fix To Not PlayAwake");
             }
 
             if (prefab.main.stopAction != ParticleSystemStopAction.None)
@@ -121,6 +128,7 @@ public static class ParticlePool
 
     //--------------------------------------------------------------------------------------------------
 
+    static Dictionary<ParticleType, ParticleSystem> shortcuts = new Dictionary<ParticleType, ParticleSystem>();
     // All of our pools
     static Dictionary<int, Pool> pools = new Dictionary<int, Pool>();
 
@@ -142,13 +150,15 @@ public static class ParticlePool
 
     static public void Play(ParticleSystem prefab, Vector3 pos, Quaternion rot)
     {
+#if UNITY_EDITOR
         if (prefab == null)
         {
-            Debug.Log(prefab.name + " is null");
+            Debug.LogError(prefab.name + " is null!");
             return;
         }
+#endif
 
-        if ( !pools.ContainsKey(prefab.GetInstanceID()))
+        if (!pools.ContainsKey(prefab.GetInstanceID()))
         {
             Transform newRoot = new GameObject("VFX_" + prefab.name).transform;
             newRoot.SetParent(Root);
@@ -156,6 +166,18 @@ public static class ParticlePool
         }
 
         pools[prefab.GetInstanceID()].Play(pos, rot);
+    }
+
+    static public void Play(ParticleType particleType, Vector3 pos, Quaternion rot)
+    {
+#if UNITY_EDITOR
+        if (!shortcuts.ContainsKey(particleType))
+        {
+            Debug.LogError(particleType + " is nees install at pool container!!!");
+        }
+#endif
+
+        Play(shortcuts[particleType], pos, rot);
     }
 
     static public void Release(ParticleSystem prefab)
@@ -170,12 +192,22 @@ public static class ParticlePool
             GameObject.DestroyImmediate(prefab);
         }
     }
+    
+    static public void Release(ParticleType particleType)
+    {
+#if UNITY_EDITOR
+        if (!shortcuts.ContainsKey(particleType))
+        {
+            Debug.LogError(particleType + " is nees install at pool container!!!");
+        }
+#endif
+
+        Release(shortcuts[particleType]);
+    }
+
+    static public void Shortcut(ParticleType particleType, ParticleSystem particleSystem)
+    {
+        shortcuts.Add(particleType, particleSystem);
+    }
 }
 
-[System.Serializable]
-public class ParticleAmount
-{
-    public ParticleSystem prefab;
-    public int amount;
-    public Transform root;
-}
