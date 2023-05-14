@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6800577872771278635}
   - component: {fileID: 2538771473488076061}
   - component: {fileID: 8072436658536784356}
+  - component: {fileID: -5134480658541371093}
+  - component: {fileID: 2555001768512907964}
   m_Layer: 0
   m_Name: uzi
   m_TagString: Untagged
@@ -84,3 +86,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-5134480658541371093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510834657693209912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a31b642312f564cadd3085de1ff946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 12
+  Target: {fileID: 0}
+  ParentAttackRing: {fileID: 0}
+--- !u!65 &2555001768512907964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510834657693209912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.084843494, y: 0.07816243, z: 0.0118512595}
+  m_Center: {x: 0.0059030876, y: 0.0027195173, z: 0}

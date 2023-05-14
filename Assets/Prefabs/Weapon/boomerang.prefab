@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7837160872793020608}
   - component: {fileID: 7837160872792250592}
   - component: {fileID: 7837160872791120416}
+  - component: {fileID: -3503622285476633137}
+  - component: {fileID: -1084142563521993401}
   m_Layer: 0
   m_Name: boomerang
   m_TagString: Untagged
@@ -83,3 +85,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-3503622285476633137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7837160872793113824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a31b642312f564cadd3085de1ff946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 5
+  Target: {fileID: 0}
+  ParentAttackRing: {fileID: 0}
+--- !u!65 &-1084142563521993401
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7837160872793113824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.04715059, y: 0.09565168, z: 0.007876435}
+  m_Center: {x: 0.023739869, y: 0, z: 0}
