@@ -17,71 +17,95 @@ MonoBehaviour:
     WeaponName: Arrow
     WeaponSprite: {fileID: 21300000, guid: 317ab2e33cd06af499894eac0b795074, type: 3}
     AttackRangeBonus: 0
-    Price: 0
+    AttackSpeedBonus: 25
+    Price: 2500
+    BonusAttribute: +25 Attack Speed
     WeaponType: 2
   - Prefab: {fileID: 5269710159869537690, guid: e3d7984f9b1795842b73a67ad578b8e9, type: 3}
     WeaponName: Axe_0
     WeaponSprite: {fileID: 21300000, guid: 29cf7060a95599b45b5032a6a3cd1798, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 15
+    AttackSpeedBonus: 0
+    Price: 800
+    BonusAttribute: +15 Range
     WeaponType: 3
   - Prefab: {fileID: 2998544285247034229, guid: 9b2a518640b83564d8cf948d2147e2c8, type: 3}
     WeaponName: Axe_1
     WeaponSprite: {fileID: 21300000, guid: dd47ffa33ce48924eb157693923298bb, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 20
+    AttackSpeedBonus: 0
+    Price: 1500
+    BonusAttribute: +20 Range
     WeaponType: 4
   - Prefab: {fileID: 7837160872793113824, guid: 28892be480371c34ba755514f43e9572, type: 3}
     WeaponName: Boomerang
     WeaponSprite: {fileID: 21300000, guid: 850560a3d5d05414985431b7fe969284, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 5
+    AttackSpeedBonus: 0
+    Price: 400
+    BonusAttribute: +5 Range*2
     WeaponType: 5
   - Prefab: {fileID: 3828059231785578447, guid: 68c8fb0e161d5814cb8b6b70d47f86d5, type: 3}
     WeaponName: Candy_0
     WeaponSprite: {fileID: 21300000, guid: 82541a9d027d1ef459d4baf465a125ce, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 3
+    AttackSpeedBonus: 0
+    Price: 50
+    BonusAttribute: +3 Range
     WeaponType: 6
   - Prefab: {fileID: 4438888039126313514, guid: e9f37895c46bea54baf81fb620de981e, type: 3}
     WeaponName: Candy_1
     WeaponSprite: {fileID: 21300000, guid: 724e4328a30d97c4fa51f406c3ff007d, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 5
+    AttackSpeedBonus: 0
+    Price: 200
+    BonusAttribute: +5 Range
     WeaponType: 7
   - Prefab: {fileID: 4383484516220851554, guid: f434238c07ed23547b5fdf8e5440ed19, type: 3}
     WeaponName: Candy_2
     WeaponSprite: {fileID: 21300000, guid: 3af6351134a980440a9abb799a182e85, type: 3}
     AttackRangeBonus: 0
-    Price: 0
+    AttackSpeedBonus: 15
+    Price: 1000
+    BonusAttribute: +15 Attack Speed
     WeaponType: 8
   - Prefab: {fileID: 7961326502689165913, guid: e20072f8f263a434cac3c3bd2ace5ba5, type: 3}
     WeaponName: Candy_4
     WeaponSprite: {fileID: 21300000, guid: 5a7af5be6b42eb940ac6d08116d0fe7e, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 10
+    AttackSpeedBonus: 0
+    Price: 600
+    BonusAttribute: +10 Range
     WeaponType: 9
   - Prefab: {fileID: 4269667699689261862, guid: 11796a4c89b3ef64790d731eec502d22, type: 3}
     WeaponName: Hammer
     WeaponSprite: {fileID: 21300000, guid: 2dbdf917bda18854c9feb89adc0a75f7, type: 3}
-    AttackRangeBonus: 0
+    AttackRangeBonus: 1
+    AttackSpeedBonus: 0
     Price: 0
+    BonusAttribute: +1 Range
     WeaponType: 10
   - Prefab: {fileID: 4020928708018944165, guid: 1a82b71de0aa6b742b21ee89e9f4cda3, type: 3}
     WeaponName: Knife
     WeaponSprite: {fileID: 21300000, guid: 33c349a86a058c34196d38bf8d1d2ca9, type: 3}
     AttackRangeBonus: 0
-    Price: 0
+    AttackSpeedBonus: 6
+    Price: 100
+    BonusAttribute: +5 Attack Speed
     WeaponType: 11
   - Prefab: {fileID: 7510834657693209912, guid: 52630c1a1ea10134e9b691b288ce92a0, type: 3}
     WeaponName: Uzi
     WeaponSprite: {fileID: 21300000, guid: 344190b4a34fea344b3b501047bdad40, type: 3}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 25
+    AttackSpeedBonus: 0
+    Price: 3000
+    BonusAttribute: +25 Range
     WeaponType: 12
   - Prefab: {fileID: 4291902058988955548, guid: 2780d64e904a6cc45870e336c14a2ee6, type: 3}
     WeaponName: Z
     WeaponSprite: {fileID: 0}
-    AttackRangeBonus: 0
-    Price: 0
+    AttackRangeBonus: 10
+    AttackSpeedBonus: 0
+    Price: 2000
+    BonusAttribute: +10 Range*2
     WeaponType: 13

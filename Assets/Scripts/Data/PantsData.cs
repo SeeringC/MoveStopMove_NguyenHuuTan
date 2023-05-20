@@ -19,7 +19,8 @@ public class PantsAttribute
 {
     public Material material;
     public string PantsName;
-    public int MoveSpeed;
+    public Sprite PantSprite;
+    public int BonusMoveSpeed;
     public int Price;
 }
 

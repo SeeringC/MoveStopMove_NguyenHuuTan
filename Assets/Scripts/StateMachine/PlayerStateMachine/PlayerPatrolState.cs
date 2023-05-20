@@ -14,7 +14,7 @@ public class PlayerPatrolState : PlayerBaseState
     {
         
         Vector3 targetPosition = player.m_transform.position + player.lookDirection;
-        player.m_transform.position = Vector3.MoveTowards(player.m_transform.position, targetPosition, 3 * Time.deltaTime);
+        player.m_transform.position = Vector3.MoveTowards(player.m_transform.position, targetPosition, player.MoveSpeed * Time.deltaTime);
         Quaternion toRotation = Quaternion.LookRotation(player.lookDirection, Vector3.up);
 
         player.m_transform.rotation = Quaternion.RotateTowards(player.m_transform.rotation, toRotation, player.RotationSpeed * Time.deltaTime);

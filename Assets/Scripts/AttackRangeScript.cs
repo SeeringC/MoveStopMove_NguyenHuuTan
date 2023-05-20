@@ -11,6 +11,8 @@ public class AttackRangeScript : MonoBehaviour
     public Transform m_transform;
     public Character character;
     public bool TargetSet = false;
+    public GameObject AttackRangeAppearance;
+    public float AttackSpeed = 3;
     //public List<Character> enemiesInRange = new();
 
     public Transform WeaponSpawnLocation;
@@ -63,7 +65,7 @@ public class AttackRangeScript : MonoBehaviour
         weaponScript.ParentAttackRing = this.gameObject;
         weaponScript.Target = character.characterList[0].gameObject;
         
-        yield return Cache.GetWFS(2);
+        yield return Cache.GetWFS(AttackSpeed);
 
         if (character.characterList.Count > 0)
         {

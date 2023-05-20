@@ -1014,17 +1014,18 @@ MonoBehaviour:
   m_transform: {fileID: 60973816993392190}
   AttackRange: {fileID: 8567669202692403549}
   Anim: {fileID: 0}
+  MoveSpeed: 3
   weapon: 1
   weaponData: {fileID: 11400000, guid: ff446529cc4384141bc53c7373e36a5a, type: 2}
   pants: 0
   pantsData: {fileID: 11400000, guid: 9e207bce0b782d54784729254aabcc58, type: 2}
   GameObjectPants: {fileID: 2195207102803619658}
+  hair: 1
   Head: {fileID: 1071905657570545228}
   hairData: {fileID: 11400000, guid: 3804afb8488d7b84e9fcb4ccc505c23b, type: 2}
-  hair: 1
+  shield: 0
   LeftHand: {fileID: 8172459755511591558}
   shieldData: {fileID: 11400000, guid: 6afd694cc966e3c4185335b1dbff817b, type: 2}
-  shield: 0
   Agent: {fileID: 8651411208201993890}
   Floor: {fileID: 94061199626413807, guid: dda3e037f8944c24eb0187a4f97f5d1f, type: 3}
   MapBound:
@@ -2300,6 +2301,8 @@ MonoBehaviour:
   m_transform: {fileID: 7982905058333426979}
   character: {fileID: 3928201578320450604}
   TargetSet: 0
+  AttackRangeAppearance: {fileID: 4077320475425131420}
+  AttackSpeed: 3
   WeaponSpawnLocation: {fileID: 53820875}
 --- !u!1 &8174333601660309104
 GameObject:

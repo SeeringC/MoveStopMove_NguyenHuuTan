@@ -15,41 +15,51 @@ MonoBehaviour:
   hairs:
   - Prefab: {fileID: 2561843406935459852, guid: b27bf74257c0c3b4fb3d7156828a0cd8, type: 3}
     HairName: Arrow
-    AttackRange: 5
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 2f8937590677b044b8619858abca9ecf, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 1686822176731017034, guid: c919fba50a819b64ba0d7ec8ebcef6ec, type: 3}
     HairName: Cowboy
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 7ecc7cd28cb66fb41ac2e56ca5e22d5c, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 711508719598640644, guid: 2758450f804e8f145a4c2ce2d054b7b3, type: 3}
     HairName: Crown
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: a50fa6b5fea3d264cbec440c2da1dbf8, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 4386029866458513438, guid: 5e40642b1df5c114c95ac587b27a73fb, type: 3}
     HairName: Ear
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 5dd6afb8b1bc7b947853e77fc8811be4, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 3489409967996117095, guid: 4b28f1a331e981a4080f0c2ba59b6ff6, type: 3}
     HairName: Hat
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 16a71104cd40fbd408c2919484df4cd7, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 3424333540855147351, guid: 3707531e2a5b7f4469e15f9e02035a5f, type: 3}
     HairName: Hat_Cap
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 76e934370403f35428e37cc379bed4c7, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 8346300215332126635, guid: 7cc3332cdebe626469efa83e8ac6fab1, type: 3}
     HairName: Hat_Yeallow
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 69fc10e773b5a814198a5883e168c2b7, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 7333311405667272383, guid: 62e2a51e703bc4544a328fbc6cdcb5d7, type: 3}
     HairName: Headphone
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 694f596b7929bdb409ba3630631783d9, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 4301483716445203691, guid: 1559c8b2a757c0a4fa22688d65802d67, type: 3}
     HairName: Horn
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: c72f60a9ff619e54ea03f81d8477c714, type: 3}
+    AttackRangeBonus: 5
+    Price: 500
   - Prefab: {fileID: 6880125156348516194, guid: a9b6270c8105f80479b684c340d59ada, type: 3}
     HairName: Rau
-    AttackRange: 2
-    Price: 100
+    HairSprite: {fileID: 21300000, guid: 0721f07e295ea594ba265006fe888315, type: 3}
+    AttackRangeBonus: 5
+    Price: 500

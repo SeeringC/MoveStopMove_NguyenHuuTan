@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIShop : MonoBehaviour
 {
     public GameObject Shop;
-    public void OpenShop()
+    public void OpenWeaponShop()
     {
         Shop.SetActive(true);
     }

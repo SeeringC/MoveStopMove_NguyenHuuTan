@@ -20,6 +20,7 @@ public class ShieldAttribute
     public GameObject Prefab;
     public string ShieldName;
 
+    public Sprite ShieldSprite;
     public float GoldBonus;
     public int Price;
 }

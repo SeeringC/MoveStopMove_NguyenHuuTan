@@ -19,8 +19,10 @@ public class WeaponAttribute
     public GameObject Prefab;
     public string WeaponName;
     public Sprite WeaponSprite;
-    public int AttackRangeBonus;
+    public float AttackRangeBonus;
+    public float AttackSpeedBonus;
     public int Price;
+    public string BonusAttribute;
     public PoolType WeaponType;
     
 }

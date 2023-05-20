@@ -19,8 +19,8 @@ public class HairAttribute
 {
     public GameObject Prefab;
     public string HairName;
-
-    public float AttackRange;
+    public Sprite HairSprite;
+    public float AttackRangeBonus;
     public int Price;
 }
 

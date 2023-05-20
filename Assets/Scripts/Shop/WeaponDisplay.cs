@@ -26,51 +26,70 @@ public class WeaponDisplay : MonoBehaviour
     }
     public void DisplayWeapon(int WeaponID)
     {
-        Debug.Log("displayed");
         Weapon weapon = (Weapon)WeaponIDToDisplay;
 
         //weapon = weaponData.GetDataByIndex(WeaponID);
         WeaponName.text = weaponData.GetData(weapon).WeaponName;
-        BonusAttackRange.text = "% Range" + Convert.ToString(weaponData.GetData(weapon).AttackRangeBonus);
+        BonusAttackRange.text = weaponData.GetData(weapon).BonusAttribute;
         WeaponPrice.text = Convert.ToString(weaponData.GetData(weapon).Price);
         WeaponSprite.sprite = weaponData.GetData(weapon).WeaponSprite;
     }
     
     public void ToLeft()
     {
-        Debug.Log("clicked");
-        WeaponIDToDisplay--;
-        if (WeaponIDToDisplay < 0) return;
-        Debug.Log("passed");
-
-        DisplayWeapon(WeaponIDToDisplay);
-        
+        if (WeaponIDToDisplay > 0)
+        {
+            WeaponIDToDisplay--;
+            DisplayWeapon(WeaponIDToDisplay);
+        }
     }
         
     public void ToRight()
     {
-        Debug.Log("clicked");
-        Debug.Log("current id is: " + WeaponIDToDisplay);
-        Debug.Log("size is: " + weaponData.weapons.Count);
-        WeaponIDToDisplay++;
-        if (WeaponIDToDisplay > weaponData.weapons.Count) return;
-        Debug.Log("passed");
-        
-        DisplayWeapon(WeaponIDToDisplay);
+        if (WeaponIDToDisplay < weaponData.weapons.Count - 1)
+        {
+            
+            WeaponIDToDisplay++;
+            DisplayWeapon(WeaponIDToDisplay);
+        }
+
     }
+
+    public int SavedWeaponID;
 
     public void SelectWeapon()
     {
         Weapon weapon = (Weapon)WeaponIDToDisplay;
         Player.ChangeWeapon(weapon);
-        CloseShop();
+        WeaponIDToDisplay = SavedWeaponID;
+        PlayerPrefs.GetInt("SavedWeaponID", SavedWeaponID);
+        PlayerPrefs.Save();
+
+        CloseWeaponShop();
+
     }
+
+    public TextMeshProUGUI CurrentCoinText;
+    public int Price;
+    public void Purchased()
+    {
+        int CurrentCoin = PlayerPrefs.GetInt("PlayerCoin");
+        Weapon weapon = (Weapon)WeaponIDToDisplay;
+        Price = weaponData.GetData(weapon).Price;
+
+        if (CurrentCoin < Price) return;
+
+        CurrentCoin -= Price;
+        CurrentCoinText.text = Convert.ToString(CurrentCoin);
+        PlayerPrefs.SetInt("PlayerCoin", CurrentCoin);
+    }
+
     public GameObject Shop;
-    public void OpenShop()
+    public void OpenWeaponShop()
     {
         Shop.SetActive(true);
     }
-    public void CloseShop()
+    public void CloseWeaponShop()
     {
         Shop.SetActive(false);
     }

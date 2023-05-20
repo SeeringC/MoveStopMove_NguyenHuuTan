@@ -19,7 +19,6 @@ public class Bot : Character
     public Vector3 destination;
     public bool DestinationSet = false;
     public bool AttackAble = false;
-
     
     public override void Start()
     {
@@ -51,6 +50,7 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
+        Agent.speed = MoveSpeed;
     }   
     public void GetRandomPosition()
     {

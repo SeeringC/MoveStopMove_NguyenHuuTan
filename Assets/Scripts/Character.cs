@@ -15,6 +15,8 @@ public class Character : GameUnit
 
     public Animator Anim;
 
+    public float MoveSpeed = 3f;
+
     public Weapon weapon;
     public WeaponData weaponData;
 
@@ -22,37 +24,15 @@ public class Character : GameUnit
     public PantsData pantsData;
     public GameObject GameObjectPants;
 
+    public Hair hair;
     public Transform Head;
     private GameObject Hair;
     public HairData hairData;
-    public Hair hair;
 
+    public Shield shield;
     public Transform LeftHand;
     private GameObject Shield;
     public ShieldData shieldData;
-    public Shield shield;
-
-    public void ChangeWeapon(Weapon weapon)
-    {
-        AttackRange.WeaponType = weaponData.GetData(weapon).WeaponType;
-    }
-
-    public void ChangePants(Pants pants)
-    {
-        GameObjectPants.GetComponent<Renderer>().sharedMaterial = pantsData.GetData(pants).material;
-    }
-
-    public void ChangeHair(Hair hair)
-    {
-        Hair = hairData.GetData(hair).Prefab;
-        Instantiate(Hair, Head);
-    }
-
-    public void ChangeShield(Shield shield)
-    {
-        Shield = shieldData.GetData(shield).Prefab;
-        Instantiate(Shield, LeftHand);
-    }
 
     public virtual void Start()
     {
@@ -60,6 +40,7 @@ public class Character : GameUnit
     }
     public virtual void Update()
     {
+
     }
     public override void OnDespawn()
     {
@@ -71,13 +52,55 @@ public class Character : GameUnit
         m_transform = GetComponent<Transform>();
         AttackRange = transform.GetChild(3).GetComponent<AttackRangeScript>();
         Anim = GetComponent<Animator>();
-        ChangeWeapon(weapon);
-        ChangePants(pants);
-        ChangeHair(hair);
-        ChangeShield(shield);
+
+        int PantsID = PlayerPrefs.GetInt("SavedPantsID");
+        Pants pants = (Pants)PantsID;
+
+        int HairID = PlayerPrefs.GetInt("SavedHairID");
+        Hair hair = (Hair)HairID;
+
+        int ShieldID = PlayerPrefs.GetInt("SavedShieldID");
+        Shield shield = (Shield)ShieldID;
+
+        int WeaponID = PlayerPrefs.GetInt("SavedWeaponID");
+        Weapon weapon = (Weapon)WeaponID;
+
+        ChangeWeapon((Weapon)WeaponID);
+        ChangePants((Pants)PantsID);
+        ChangeHair((Hair)HairID);
+        ChangeShield((Shield)ShieldID);
     }
 
+    public void ChangeWeapon(Weapon weapon)
+    {
+        AttackRange.WeaponType = weaponData.GetData(weapon).WeaponType;
 
+        GetBonusAttackRange();
+        GetBonusAttackSpeed();
+    }
+
+    public void ChangePants(Pants pants)
+    {
+        GameObjectPants.GetComponent<Renderer>().sharedMaterial = pantsData.GetData(pants).material;
+        GetBonusMoveSpeed();
+    }
+
+    public void ChangeHair(Hair hair)
+    {
+        Hair = hairData.GetData(hair).Prefab;
+        Instantiate(Hair, Head);
+
+        GetBonusAttackRange();
+       
+    }
+
+    public void ChangeShield(Shield shield)
+    {
+        Shield = shieldData.GetData(shield).Prefab;
+        Instantiate(Shield, LeftHand);
+    }
+
+    
     public void Attack()
     {
         //Debug.Log(AttackRange.TargetSet);
@@ -123,6 +146,30 @@ public class Character : GameUnit
 
         /// Clear all function in callback
         onDespawnCallback = null;
+    }
+
+    public void GetBonusAttackRange()
+    {
+        //attack range
+        float BonusAttackRange = hairData.GetData(hair).AttackRangeBonus / 100.0f;
+        Vector3 AttackRangeSize = AttackRange.AttackRangeAppearance.transform.localScale;
+        float AttackRangeRadius = AttackRange.GetComponent<SphereCollider>().radius;
+
+        AttackRange.AttackRangeAppearance.transform.localScale = AttackRangeSize + AttackRangeSize * BonusAttackRange;
+        AttackRange.GetComponent<SphereCollider>().radius = AttackRangeRadius + AttackRangeRadius * BonusAttackRange;
+    }
+
+    public void GetBonusAttackSpeed()
+    {
+        float BonusAttackSpeed = weaponData.GetData(weapon).AttackSpeedBonus / 100.0f;
+        float AttackSpeed = AttackRange.AttackSpeed;
+        AttackRange.AttackSpeed = AttackSpeed - (AttackSpeed * BonusAttackSpeed);
+    }
+
+    public void GetBonusMoveSpeed()
+    {
+        float BonusMoveSpeed = pantsData.GetData(pants).BonusMoveSpeed / 100.0f;
+        MoveSpeed = MoveSpeed + (MoveSpeed * BonusMoveSpeed);
     }
 
 }
