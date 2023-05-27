@@ -43,6 +43,8 @@ public class UIManager : Singleton<UIManager>
         Win = 1,
         Lose = 2,
         GamePlay = 3,
+        SkinShop = 4,
+        WeaponShop = 5,
     }
 
     #region Canvas

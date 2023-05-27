@@ -7,7 +7,7 @@ public class PatrolState : BaseState
 {
     public override void EnterState(Bot bot)
     {
-        bot.Anim.SetTrigger(ConstantClass.AnimIsRun);
+        bot.ChangeAnim(ConstantClass.AnimIsRun);
 
         if (!bot.DestinationSet)
         {

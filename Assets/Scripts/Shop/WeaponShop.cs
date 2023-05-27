@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponDisplay : MonoBehaviour
+public class WeaponShop : UICanvas
 {
     public Player Player;
     public WeaponData weaponData;
@@ -18,11 +18,12 @@ public class WeaponDisplay : MonoBehaviour
 
     private void Start()
     {
-        OnInit();
-    }
-    public void OnInit()
-    {
         WeaponIDToDisplay = 0;
+    }
+    public override void OnInit()
+    {
+        base.OnInit();
+        CoinManager.Ins.PrintCurrentCoin(CurrentCoinText);
     }
     public void DisplayWeapon(int WeaponID)
     {
@@ -55,14 +56,12 @@ public class WeaponDisplay : MonoBehaviour
 
     }
 
-    public int SavedWeaponID;
 
     public void SelectWeapon()
     {
         Weapon weapon = (Weapon)WeaponIDToDisplay;
         Player.ChangeWeapon(weapon);
-        WeaponIDToDisplay = SavedWeaponID;
-        PlayerPrefs.GetInt("SavedWeaponID", SavedWeaponID);
+        PlayerPrefs.SetInt(ConstantClass.SavedWeaponId, WeaponIDToDisplay);
         PlayerPrefs.Save();
 
         CloseWeaponShop();
@@ -73,25 +72,27 @@ public class WeaponDisplay : MonoBehaviour
     public int Price;
     public void Purchased()
     {
-        int CurrentCoin = PlayerPrefs.GetInt("PlayerCoin");
         Weapon weapon = (Weapon)WeaponIDToDisplay;
         Price = weaponData.GetData(weapon).Price;
 
-        if (CurrentCoin < Price) return;
-
-        CurrentCoin -= Price;
-        CurrentCoinText.text = Convert.ToString(CurrentCoin);
-        PlayerPrefs.SetInt("PlayerCoin", CurrentCoin);
+        CoinManager.Ins.SubtractCoin(Price);
+        CoinManager.Ins.PrintCurrentCoin(CurrentCoinText);
     }
 
-    public GameObject Shop;
+    public GameObject weaponShop;
+    //public GameObject SkinShopButton;
     public void OpenWeaponShop()
     {
-        Shop.SetActive(true);
+        weaponShop.SetActive(true);
+        //SkinShopButton.SetActive(false);
     }
     public void CloseWeaponShop()
     {
-        Shop.SetActive(false);
+        UIManager.Ins.OpenUI<MainMenu>(UIManager.UIID.MainMenu);
+        Close(0);
+        //weaponShop.SetActive(false);
+        //SkinShopButton.SetActive(true);
+
     }
 
 

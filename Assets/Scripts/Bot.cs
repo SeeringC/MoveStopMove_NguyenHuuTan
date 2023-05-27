@@ -23,7 +23,7 @@ public class Bot : Character
     public override void Start()
     {
         base.Start();
-
+        OnInit();
         currentState = PatrolState;
         currentState.EnterState(this);
 
@@ -35,7 +35,7 @@ public class Bot : Character
         base.Update();
 
         currentState.UpdateState(this);
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
         //Debug.Log("distance is" + Vector3.Distance(m_transform.position, destination));
         //Debug.Log("currnt pos is" + m_transform.position);
         //Debug.Log("currnt dest is" + destination);
@@ -49,6 +49,7 @@ public class Bot : Character
 
     public override void OnInit()
     {
+        NameList.AddName(ref CharName);
         base.OnInit();
         Agent.speed = MoveSpeed;
     }   

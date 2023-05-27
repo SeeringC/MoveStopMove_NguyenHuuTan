@@ -157,6 +157,8 @@ public enum PoolType
     Knife,
     Uzi,
     Z,
+    MissionWaypoint,
+    TargerRing,
 }
 
 

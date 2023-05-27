@@ -7,7 +7,7 @@ public class PlayerPatrolState : PlayerBaseState
 {
     public override void EnterState(Player player)
     {
-        player.Anim.SetTrigger(ConstantClass.AnimIsRun);
+        player.ChangeAnim(ConstantClass.AnimIsRun);
     }
 
     public override void UpdateState(Player player)

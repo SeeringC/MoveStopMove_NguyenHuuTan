@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf7d13c778442f4d8e0a10b904f9654, type: 3}
+  m_Name: New Static Weapon Data
+  m_EditorClassIdentifier: 
+  StaticWeapons:
+  - Prefab: {fileID: 1424797931499212378, guid: 4c5df244474f9c4459ef29f92752965d, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 5269710159869537690, guid: 0bf42a44f1c2d6c4196e0b2d5c1053e7, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 2998544285247034229, guid: c17207f22e41d2f4eaa013ddab6a1c6b, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 7837160872793113824, guid: 283cc3e33c2f0604490a84c2979d642f, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 3828059231785578447, guid: 923616473d8c1a147aabbb55da3ae14d, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 4438888039126313514, guid: 8fdcb93fc40ea20419f0e9530f6fb620, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 4383484516220851554, guid: 959b19390fc0cc64b9e927c95d11effd, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 7961326502689165913, guid: c288207005410874991a4e570524b472, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 4269667699689261862, guid: c7d0459a6bb1bd946a70070b8ef0585f, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 4020928708018944165, guid: a82f41900979fae4396c3dd807507088, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 7510834657693209912, guid: 51fa0a2e7ccd5c8499cd12bcbfe6648b, type: 3}
+    StaticWeaponType: 0
+  - Prefab: {fileID: 0}
+    StaticWeaponType: 0

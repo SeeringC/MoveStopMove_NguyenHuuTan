@@ -21,15 +21,12 @@ public class PantsDisplay : MonoBehaviour
     {
         CreatePants();
     }
-
-    public int SavedPantsID;
     public void SelectPants()
     {
         Pants pants = (Pants)PantsID;
         Player.ChangePants(pants);
 
-        PantsID = SavedPantsID;
-        PlayerPrefs.GetInt("SavedPantsID", SavedPantsID);
+        PlayerPrefs.GetInt(ConstantClass.SavedPantsId, PantsID);
         PlayerPrefs.Save();
 
         //ClosePantsShop();
@@ -53,15 +50,12 @@ public class PantsDisplay : MonoBehaviour
     public int Price;
     public void Purchased()
     {
-        int CurrentCoin = PlayerPrefs.GetInt("PlayerCoin");
+
         Pants pants = (Pants)PantsID;
         Price = pantsData.GetData(pants).Price;
 
-        if (CurrentCoin < Price) return;
-
-        CurrentCoin -= Price;
-        CurrentCoinText.text = Convert.ToString(CurrentCoin);
-        PlayerPrefs.SetInt("PlayerCoin", CurrentCoin);
+        CoinManager.Ins.SubtractCoin(Price);
+        CoinManager.Ins.PrintCurrentCoin(CurrentCoinText);
     }
 
 

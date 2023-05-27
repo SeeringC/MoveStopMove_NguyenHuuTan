@@ -1015,6 +1015,9 @@ MonoBehaviour:
   AttackRange: {fileID: 8567669202692403549}
   Anim: {fileID: 0}
   MoveSpeed: 3
+  staticWeapon: 0
+  RightHand: {fileID: 8087259971274721626}
+  staticWeaponData: {fileID: 11400000, guid: eb951c10cca5b044d9655879cb6f4145, type: 2}
   weapon: 1
   weaponData: {fileID: 11400000, guid: ff446529cc4384141bc53c7373e36a5a, type: 2}
   pants: 0
@@ -1026,6 +1029,11 @@ MonoBehaviour:
   shield: 0
   LeftHand: {fileID: 8172459755511591558}
   shieldData: {fileID: 11400000, guid: 6afd694cc966e3c4185335b1dbff817b, type: 2}
+  missionWaypoint: {fileID: 0}
+  Ren: {fileID: 4820203645295533006}
+  CharName: 
+  CharacterScale: {fileID: 4929648068145611448}
+  Level: 0
   Agent: {fileID: 8651411208201993890}
   Floor: {fileID: 94061199626413807, guid: dda3e037f8944c24eb0187a4f97f5d1f, type: 3}
   MapBound:
@@ -2303,6 +2311,7 @@ MonoBehaviour:
   TargetSet: 0
   AttackRangeAppearance: {fileID: 4077320475425131420}
   AttackSpeed: 3
+  TargetRing: {fileID: 0}
   WeaponSpawnLocation: {fileID: 53820875}
 --- !u!1 &8174333601660309104
 GameObject:

@@ -22,22 +22,25 @@ public class Player : Character
 
     public override void Start()
     {
-        base.Start();
-        currentState = IdleState;
-        currentState.EnterState(this);
+        Anim = GetComponent<Animator>();
+
+
         //SwitchState(IdleState);
     }
-   
+
     public override void Update()
     {
         base.Update();
         GetJoystickInput();
         currentState.UpdateState(this);
-
+        
     }
     public override void OnInit()
     {
+        CharName = PlayerPrefs.GetString("PlayerName");
         base.OnInit();
+        currentState = IdleState;
+        currentState.EnterState(this);
     }
 
     public override void OnDespawn()

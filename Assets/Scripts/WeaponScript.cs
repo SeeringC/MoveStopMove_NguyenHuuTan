@@ -6,7 +6,7 @@ public class WeaponScript : GameUnit
 {
     public GameObject Target;
 
-    public GameObject ParentAttackRing;
+    public AttackRangeScript ParentAttackRing;
     private Vector3 targetPosition;
     private void Start()
     {
@@ -22,7 +22,7 @@ public class WeaponScript : GameUnit
         }
 
         if (Vector3.Distance(transform.position, targetPosition2) > 0.1f) return;
-        ParentAttackRing.GetComponent<AttackRangeScript>().TargetSet = false;
+        ParentAttackRing.TargetSet = false;
         this.gameObject.SetActive(false);
     }
 
@@ -40,15 +40,42 @@ public class WeaponScript : GameUnit
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(ConstantClass.TagBot) || other.CompareTag(ConstantClass.TagPlayer))
+        if (other.CompareTag(ConstantClass.TagBot))
         {
-            Debug.Log("hit");
-            //ParentAttackRing.GetComponent<AttackRangeScript>().enemiesInRange.Remove(other.GetComponent<Character>());
+
+            ParentAttackRing.character.Level++;
+            ParentAttackRing.character.IncreaseScale();
+
             Character tempChar = Cache.GetCharacter(other);
+
+            ParentAttackRing.character.RemoveCharacter(tempChar);
+
+            tempChar.OnDespawn();
             tempChar.Despawn();
             //other.gameObject.SetActive(false);
-            this.gameObject.SetActive(false);
             
+            if (ParentAttackRing.character.CompareTag(ConstantClass.TagPlayer))
+            {
+                ParentAttackRing.TargetRing.gameObject.SetActive(false);
+                CoinManager.Ins.IncreaseTotalKillCoin();
+            }
+
+            this.gameObject.SetActive(false);
+
+            Map.Ins.AliveBotNumber--;
+            Map.Ins.ActiveBotNumber--;
+            LevelManager.Ins.ChangeActiveBot(Map.Ins.AliveBotNumber);
+            Map.Ins.CSpawnBot();
+            
+        }
+
+        if (other.CompareTag(ConstantClass.TagPlayer))
+        {
+            ParentAttackRing.character.Level++;
+            ParentAttackRing.character.IncreaseScale();
+
+            Character tempChar = Cache.GetCharacter(other);
+            LevelManager.Ins.LoseBy(ParentAttackRing.character.CharName);
         }
     }
 

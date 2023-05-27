@@ -1,0 +1,186 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NameList
+{
+    public static List<string> names = new List<string>()
+    {
+        "Biffle"  ,
+        "Shuttershy"  ,
+        "Mouse"   ,
+        "Punk"    ,
+        "Bub" ,
+        "Princess"    ,
+        "Pyscho"  ,
+        "Catwoman"    ,
+        "Turtle"  ,
+        "Doll"    ,
+        "Numbers" ,
+        "Kid" ,
+        "Coach"   ,
+        "Harry Potter"    ,
+        "Snickerdoodle"   ,
+        "Cat" ,
+        "Ace" ,
+        "Focker"  ,
+        "Speedy"  ,
+        "Twiggy"  ,
+        "Thor"    ,
+        "Rockette"    ,
+        "Manatee" ,
+        "Honeybun"    ,
+        "Guapo"   ,
+        "Shrinkwrap"  ,
+        "Starbuck"    ,
+        "Dingo"   ,
+        "Donuts"  ,
+        "Big Guy" ,
+        "Beautiful"   ,
+        "LaLa"    ,
+        "Buck"    ,
+        "Sweety"  ,
+        "Bug" ,
+        "Shorty"  ,
+        "Tater"   ,
+        "Boo Bug" ,
+        "Snow White"  ,
+        "Dolly"   ,
+        "Cold Brew"   ,
+        "Kirby"   ,
+        "Buds"    ,
+        "Mimi"    ,
+        "Big Bird"    ,
+        "Einstein"    ,
+        "Ginger"  ,
+        "Blondie" ,
+        "String Bean" ,
+        "Bambino" ,
+        "Snake"   ,
+        "Amorcita"    ,
+        "Grumpy"  ,
+        "Belch"   ,
+        "Bandit"  ,
+        "Pixie"   ,
+        "Scarlet" ,
+        "Midge"   ,
+        "Ticklebutt"  ,
+        "Amazon"  ,
+        "Chip"    ,
+        "Bossy"   ,
+        "Dreamey" ,
+        "Belle"   ,
+        "Pebbles" ,
+        "Lover"   ,
+        "Tootsie" ,
+        "Beetle"  ,
+        "Chump"   ,
+        "Fellow"  ,
+        "Master"  ,
+        "Kit-Kat" ,
+        "Herp Derp"   ,
+        "Skunk"   ,
+        "Teeny"   ,
+        "Jet" ,
+        "Cheeto"  ,
+        "Mr. Clean"   ,
+        "Sherlock"    ,
+        "Pookie"  ,
+        "Cookie Dough"    ,
+        "General" ,
+        "Con" ,
+        "Dearey"  ,
+        "Butterfinger"    ,
+        "Frauline"    ,
+        "Squirt"  ,
+        "Cheddar" ,
+        "Crumbles"    ,
+        "Beef"    ,
+        "Lil Girl"    ,
+        "Cheesestick" ,
+        "Oompa Loompa"    ,
+        "Tiny"    ,
+        "Big Nasty"   ,
+        "Rabbit"  ,
+        "Pixie Stick" ,
+        "Mini Skirt"  ,
+        "Snuggles"    ,
+        "Daffodil"    ,
+        "Lovely"  ,
+        "Lil Mama"    ,
+        "Pop Tart"    ,
+        "Cruella" ,
+        "Colonel" ,
+        "Rufio"   ,
+        "Sweet Tea"   ,
+        "Chica"   ,
+        "Cloud"   ,
+        "Dear"    ,
+        "Baldie"  ,
+        "Baby Bird"   ,
+        "Buster"  ,
+        "Raisin"  ,
+        "Short Shorts"    ,
+        "Terminator"  ,
+        "Cottonball"  ,
+        "Salt"    ,
+        "Superman"    ,
+        "Peppa Pig"   ,
+        "Piggy"   ,
+        "Peppermint"  ,
+        "Champ"   ,
+        "Fly" ,
+        "Boo" ,
+        "Beanpole"    ,
+        "Tickles" ,
+        "Bubblegum"   ,
+        "Biscuit" ,
+        "Babs"    ,
+        "Double Bubble"   ,
+        "Spicy"   ,
+        "Marge"   ,
+        "Daria"   ,
+        "Smoochie"    ,
+        "Butter"  ,
+        "Tata"    ,
+        "Ice Queen"   ,
+        "Chickie" ,
+        "First Mate"  ,
+        "Bunny Rabbit"    ,
+        "Bacon"   ,
+        "Gummi Bear"  ,
+        "Amethyst"    ,
+        "Barbie"  ,
+        "Pretty Lady" ,
+        "Ms. Congeniality"    ,
+        "Dirty Harry" ,
+        "Fattykins"   ,
+        "Chili"   ,
+    };
+
+    public static List<string> ExistedNames = new List<string>();
+
+    public static void ClearExistedNames()
+    {
+        ExistedNames.Clear();
+    }
+
+    public static void AddName(ref string BotName)
+    { 
+        
+        int NameIndex = Random.Range(0, 149);
+
+        string Name = names[NameIndex];
+
+
+        if (ExistedNames.Contains(Name))
+        {
+            AddName(ref BotName);
+        }
+        else
+        {
+            BotName = Name;
+            ExistedNames.Add(Name);
+        }
+    }
+}

@@ -22,15 +22,11 @@ public class ShieldDisplay : MonoBehaviour
     {
         CreateShield();
     }
-
-    public int SavedShieldID;
     public void SelectShield()
     {
         Shield shield = (Shield)ShieldID;
         Player.ChangeShield(shield);
-
-        ShieldID = SavedShieldID;
-        PlayerPrefs.GetInt("SavedShieldID", SavedShieldID);
+        PlayerPrefs.SetInt(ConstantClass.SavedShieldId, ShieldID);
         PlayerPrefs.Save();
         //CloseWeaponShop();
     }
@@ -53,15 +49,12 @@ public class ShieldDisplay : MonoBehaviour
     public int Price;
     public void Purchased()
     {
-        int CurrentCoin = PlayerPrefs.GetInt("PlayerCoin");
+        
         Shield shield = (Shield)ShieldID;
         Price = shieldData.GetData(shield).Price;
 
-        if (CurrentCoin < Price) return;
-
-        CurrentCoin -= Price;
-        CurrentCoinText.text = Convert.ToString(CurrentCoin);
-        PlayerPrefs.SetInt("PlayerCoin", CurrentCoin);
+        CoinManager.Ins.SubtractCoin(Price);
+        CoinManager.Ins.PrintCurrentCoin(CurrentCoinText);
     }
 
 }

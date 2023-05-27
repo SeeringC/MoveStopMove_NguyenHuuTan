@@ -1,24 +1,36 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class SkinDisplay : MonoBehaviour
+public class SkinShop : UICanvas
 {
-    public GameObject SkinShop;
+    public GameObject skinShop;
     public GameObject HairShop;
     public GameObject PantsShop;
     public GameObject ShieldShop;
+    public TextMeshProUGUI CurrentCoinText;
+    //public GameObject WeaponShopButton;
+    public override void OnInit()
+    {
+        base.OnInit();
+        CoinManager.Ins.PrintCurrentCoin(CurrentCoinText);
+    }
     public void OpenSkinShop()
     {
-        SkinShop.SetActive(true);
+        skinShop.SetActive(true);
         HairShop.SetActive(true);
         ShieldShop.SetActive(false);
         PantsShop.SetActive(false);
+        //WeaponShopButton.SetActive(false);
     }
     public void CloseSkinShop()
     {
-        SkinShop.SetActive(false);
+        UIManager.Ins.OpenUI<MainMenu>(UIManager.UIID.MainMenu);
+        Close(0);
+        //skinShop.SetActive(false);
+        //WeaponShopButton.SetActive(true);
     }
 
     public void OpenHairShop()

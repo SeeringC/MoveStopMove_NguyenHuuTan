@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.SwitchState(player.AttackState);
         }
-        player.Anim.SetTrigger(ConstantClass.AnimIsIdle);
+        player.ChangeAnim(ConstantClass.AnimIsIdle);
 
     }
 

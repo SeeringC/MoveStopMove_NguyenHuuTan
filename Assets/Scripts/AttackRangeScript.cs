@@ -14,7 +14,7 @@ public class AttackRangeScript : MonoBehaviour
     public GameObject AttackRangeAppearance;
     public float AttackSpeed = 3;
     //public List<Character> enemiesInRange = new();
-
+    public TargetRingScript TargetRing;
     public Transform WeaponSpawnLocation;
     private void Start()
     {  
@@ -22,7 +22,7 @@ public class AttackRangeScript : MonoBehaviour
     }
     //private void Update()
     //{
-
+        
     //}
 
     private void OnTriggerEnter(Collider other)
@@ -34,6 +34,11 @@ public class AttackRangeScript : MonoBehaviour
             //Character tempChar = other.GetComponent<Character>();
             character.AddCharacter(tempChar);
             TargetSet = true;
+
+            if (character.CompareTag(ConstantClass.TagBot)) return;
+            TargetRing.gameObject.SetActive(true);
+            Character Target = character.characterList[0];
+            TargetRing.Target = Target;
         }
         
     }
@@ -48,6 +53,20 @@ public class AttackRangeScript : MonoBehaviour
 
             character.RemoveCharacter(tempChar);
 
+            if (character.CompareTag(ConstantClass.TagBot)) return;
+
+            if (character.characterList.Count > 0)
+            {
+                Character Target = character.characterList[0];
+                TargetRing.Target = Target;
+            }
+
+            else
+            {
+                TargetRing.gameObject.SetActive(false);
+            }
+
+
         }
 
         if (character.characterList.Count == 0)
@@ -60,16 +79,18 @@ public class AttackRangeScript : MonoBehaviour
     public IEnumerator ThrowWeapon()
     {
         TargetSet = false;
-        character.m_transform.LookAt(character.characterList[0].m_transform);
+        Character Target = character.characterList[0];
+        character.m_transform.LookAt(Target.m_transform);
         WeaponScript weaponScript = SimplePool.Spawn<WeaponScript>(WeaponType, WeaponSpawnLocation.position, Quaternion.identity);
-        weaponScript.ParentAttackRing = this.gameObject;
-        weaponScript.Target = character.characterList[0].gameObject;
-        
+        weaponScript.ParentAttackRing = this;
+        weaponScript.Target = Target.gameObject;
+
+
         yield return Cache.GetWFS(AttackSpeed);
 
         if (character.characterList.Count > 0)
         {
-            weaponScript.Target = character.characterList[0].gameObject;
+            weaponScript.Target = Target.gameObject;
             TargetSet = true;
         }
     }

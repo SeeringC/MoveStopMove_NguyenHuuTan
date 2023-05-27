@@ -7,19 +7,24 @@ using UnityEngine;
 public class GetCoin : MonoBehaviour
 {
     public TextMeshProUGUI CurrentCoinText;
-
+    public int CurrentCoin;
     public void SetCoin1000()
     {
-        PlayerPrefs.SetInt("PlayerCoin", LevelManager.Ins.PlayerCoin);
+        PlayerPrefs.SetInt(ConstantClass.PlayerCoin, LevelManager.Ins.PlayerCoin);
     }
 
-    public void PrintCoin()
+    public void Get1000Coin()
     {
-        int CurrentCoin = PlayerPrefs.GetInt("PlayerCoin");
+        CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PlayerCoin);
         CurrentCoin += 1000;
         CurrentCoinText.text = Convert.ToString(CurrentCoin);
-        PlayerPrefs.SetInt("PlayerCoin", CurrentCoin);
 
-        Debug.Log(CurrentCoin);
     }
+
+    public void SaveCoin()
+    {
+        PlayerPrefs.SetInt(ConstantClass.PlayerCoin, CurrentCoin);
+        PlayerPrefs.Save();
+    }
+
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
+
+//Fix Vibated bug by Lerp
+
 public class Character : GameUnit
 {
     
@@ -16,6 +19,11 @@ public class Character : GameUnit
     public Animator Anim;
 
     public float MoveSpeed = 3f;
+
+    public StaticWeapon staticWeapon;
+    public Transform RightHand;
+    public StaticWeaponData staticWeaponData;
+    private GameObject StaticWeapon;
 
     public Weapon weapon;
     public WeaponData weaponData;
@@ -34,9 +42,16 @@ public class Character : GameUnit
     private GameObject Shield;
     public ShieldData shieldData;
 
+    public MissionWaypoint missionWaypoint;
+
+    public Renderer Ren;
+    public string CharName;
+    public GameObject CharacterScale;
+    public int Level;
+
     public virtual void Start()
     {
-        OnInit();
+        
     }
     public virtual void Update()
     {
@@ -44,7 +59,7 @@ public class Character : GameUnit
     }
     public override void OnDespawn()
     {
-
+        missionWaypoint.gameObject.SetActive(false);
     }
 
     public override void OnInit()
@@ -53,44 +68,39 @@ public class Character : GameUnit
         AttackRange = transform.GetChild(3).GetComponent<AttackRangeScript>();
         Anim = GetComponent<Animator>();
 
-        int PantsID = PlayerPrefs.GetInt("SavedPantsID");
-        Pants pants = (Pants)PantsID;
+        GetItems();
+        GetColor();
+        Level = 1;
 
-        int HairID = PlayerPrefs.GetInt("SavedHairID");
-        Hair hair = (Hair)HairID;
+        WayPointSetUp();
 
-        int ShieldID = PlayerPrefs.GetInt("SavedShieldID");
-        Shield shield = (Shield)ShieldID;
-
-        int WeaponID = PlayerPrefs.GetInt("SavedWeaponID");
-        Weapon weapon = (Weapon)WeaponID;
-
-        ChangeWeapon((Weapon)WeaponID);
-        ChangePants((Pants)PantsID);
-        ChangeHair((Hair)HairID);
-        ChangeShield((Shield)ShieldID);
     }
 
     public void ChangeWeapon(Weapon weapon)
     {
         AttackRange.WeaponType = weaponData.GetData(weapon).WeaponType;
+        
+        GetBonusAttackRange(weaponData.GetData(weapon).AttackRangeBonus);
+        GetBonusAttackSpeed(weaponData.GetData(weapon).AttackSpeedBonus);
 
-        GetBonusAttackRange();
-        GetBonusAttackSpeed();
+        StaticWeapon = staticWeaponData.GetData(((StaticWeapon)(int)weapon)).Prefab;
+        Instantiate(StaticWeapon, RightHand);
+
     }
 
     public void ChangePants(Pants pants)
     {
         GameObjectPants.GetComponent<Renderer>().sharedMaterial = pantsData.GetData(pants).material;
-        GetBonusMoveSpeed();
+        GetBonusMoveSpeed(pantsData.GetData(pants).BonusMoveSpeed);
     }
 
     public void ChangeHair(Hair hair)
     {
         Hair = hairData.GetData(hair).Prefab;
-        Instantiate(Hair, Head);
 
-        GetBonusAttackRange();
+        Instantiate(Hair, Head);
+        
+        GetBonusAttackRange(hairData.GetData(hair).AttackRangeBonus);
        
     }
 
@@ -107,7 +117,7 @@ public class Character : GameUnit
 
         if (characterList.Count == 0) return;
         if (!AttackRange.TargetSet) return;
-        Anim.SetTrigger(ConstantClass.AnimIsAttack);
+        ChangeAnim(ConstantClass.AnimIsAttack);
         AttackRange.CThrowWeapon();
     }
 
@@ -115,10 +125,9 @@ public class Character : GameUnit
     {
         
         yield return Cache.GetWFS(3);
-        Anim.SetTrigger(ConstantClass.AnimIsDead);
+        ChangeAnim(ConstantClass.AnimIsDead);
         this.gameObject.SetActive(false);
     }
-
 
     public void AddCharacter(Character character)
     {
@@ -148,28 +157,77 @@ public class Character : GameUnit
         onDespawnCallback = null;
     }
 
-    public void GetBonusAttackRange()
+    public void GetBonusAttackRange(float BonusAttackRange)
     {
-        //attack range
-        float BonusAttackRange = hairData.GetData(hair).AttackRangeBonus / 100.0f;
+        
         Vector3 AttackRangeSize = AttackRange.AttackRangeAppearance.transform.localScale;
         float AttackRangeRadius = AttackRange.GetComponent<SphereCollider>().radius;
 
-        AttackRange.AttackRangeAppearance.transform.localScale = AttackRangeSize + AttackRangeSize * BonusAttackRange;
-        AttackRange.GetComponent<SphereCollider>().radius = AttackRangeRadius + AttackRangeRadius * BonusAttackRange;
+        AttackRange.AttackRangeAppearance.transform.localScale = AttackRangeSize + ((AttackRangeSize * BonusAttackRange)/100.0f);
+        AttackRange.GetComponent<SphereCollider>().radius = AttackRangeRadius + ((AttackRangeRadius * BonusAttackRange)/100.0f);
     }
 
-    public void GetBonusAttackSpeed()
+    public void GetBonusAttackSpeed(float BonusAttackSpeed)
     {
-        float BonusAttackSpeed = weaponData.GetData(weapon).AttackSpeedBonus / 100.0f;
         float AttackSpeed = AttackRange.AttackSpeed;
-        AttackRange.AttackSpeed = AttackSpeed - (AttackSpeed * BonusAttackSpeed);
+        AttackRange.AttackSpeed = AttackSpeed - ((AttackSpeed * BonusAttackSpeed)/100.0f);
     }
 
-    public void GetBonusMoveSpeed()
+    public void GetBonusMoveSpeed(float BonusMoveSpeed)
     {
-        float BonusMoveSpeed = pantsData.GetData(pants).BonusMoveSpeed / 100.0f;
-        MoveSpeed = MoveSpeed + (MoveSpeed * BonusMoveSpeed);
+        MoveSpeed = MoveSpeed + ((MoveSpeed * BonusMoveSpeed)/100.0f);
     }
 
+    public void GetItems()
+    {
+        int PantsID = PlayerPrefs.GetInt(ConstantClass.SavedPantsId);
+        Pants pants = (Pants)PantsID;
+
+        int HairID = PlayerPrefs.GetInt(ConstantClass.SavedHairId);
+        Hair hair = (Hair)HairID;
+
+        int ShieldID = PlayerPrefs.GetInt(ConstantClass.SavedShieldId);
+        Shield shield = (Shield)ShieldID;
+
+        int WeaponID = PlayerPrefs.GetInt(ConstantClass.SavedWeaponId);
+        Weapon weapon = (Weapon)WeaponID;
+
+        ChangeWeapon((Weapon)WeaponID);
+        ChangePants((Pants)PantsID);
+        ChangeHair((Hair)HairID);
+        ChangeShield((Shield)ShieldID);
+    }
+
+    public void GetColor()
+    {
+        Ren.material.color = Random.ColorHSV(.5f, 1f, 1f, 1f);
+    }
+
+    public void IncreaseScale()
+    {
+        missionWaypoint.ChangeLevel(Level);
+        if (ScaleIncreaseMileStone.LevelMileStone.Contains(Level))
+        {
+            float scaleIncrement = (Level * 0.2f + 1);
+            CharacterScale.transform.localScale = (Level * 0.1f + 1) * Vector3.one;
+            GetBonusAttackRange(scaleIncrement);
+            GetBonusAttackSpeed(scaleIncrement);
+            GetBonusMoveSpeed(scaleIncrement);
+        }
+    }
+    
+    public void WayPointSetUp()
+    {
+        missionWaypoint = SimplePool.Spawn<MissionWaypoint>(PoolType.MissionWaypoint, m_transform.position, Quaternion.identity);
+        missionWaypoint.TargetPos = m_transform;
+        missionWaypoint.Target = this;
+        missionWaypoint.CharNameText.text = CharName;
+        missionWaypoint.CharNameText.color = Ren.material.color;
+        missionWaypoint.OnInit();
+    }
+
+    public void ChangeAnim(string AnimName)
+    {
+        Anim.SetTrigger(AnimName);
+    }
 }

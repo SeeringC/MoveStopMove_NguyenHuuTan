@@ -24,14 +24,12 @@ public class HairDisplay : MonoBehaviour
         CreateHair();
     }
 
-    public int SavedHairID;
     public void SelectHair()
     {
         Hair hair = (Hair)HairID;
         Player.ChangeHair(hair);
 
-        HairID = SavedHairID;
-        PlayerPrefs.GetInt("SavedHairID", SavedHairID);
+        PlayerPrefs.SetInt(ConstantClass.SavedHairId, HairID);
         PlayerPrefs.Save();
 
         //CloseWeaponShop();
@@ -55,15 +53,12 @@ public class HairDisplay : MonoBehaviour
     public int Price;
     public void Purchased()
     {
-        int CurrentCoin = PlayerPrefs.GetInt("PlayerCoin");
+
         Hair hair = (Hair)HairID;
         Price = hairData.GetData(hair).Price;
 
-        if (CurrentCoin < Price) return;
-
-        CurrentCoin -= Price;
-        CurrentCoinText.text = Convert.ToString(CurrentCoin);
-        PlayerPrefs.SetInt("PlayerCoin", CurrentCoin);
+        CoinManager.Ins.SubtractCoin(Price);
+        CoinManager.Ins.PrintCurrentCoin(CurrentCoinText);
     }
 
 
