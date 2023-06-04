@@ -917,9 +917,9 @@ GameObject:
   - component: {fileID: 60973816993392190}
   - component: {fileID: 7949588488782416708}
   - component: {fileID: 3928201578320450578}
-  - component: {fileID: 3928201578320450579}
   - component: {fileID: 3928201578320450604}
   - component: {fileID: 8651411208201993890}
+  - component: {fileID: 1980014849515767573}
   m_Layer: 15
   m_Name: Bot
   m_TagString: Bot
@@ -983,20 +983,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!136 &3928201578320450579
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928201578320450605}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.8022625
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9011313, z: 0}
 --- !u!114 &3928201578320450604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1020,7 @@ MonoBehaviour:
   CharName: 
   CharacterScale: {fileID: 4929648068145611448}
   Level: 0
+  isPoweredUp: 0
   Agent: {fileID: 8651411208201993890}
   Floor: {fileID: 94061199626413807, guid: dda3e037f8944c24eb0187a4f97f5d1f, type: 3}
   MapBound:
@@ -1042,6 +1029,7 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   DestinationSet: 0
   AttackAble: 0
+  des: {x: 0, y: 0, z: 0}
 --- !u!195 &8651411208201993890
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1064,6 +1052,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &1980014849515767573
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928201578320450605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.35
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.12, z: 0}
 --- !u!1 &3943587853165027400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7551116032863953499}
   - component: {fileID: 2915913545570890194}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2257,7 +2259,7 @@ GameObject:
   - component: {fileID: 7982905058333426979}
   - component: {fileID: 3707334106997677477}
   - component: {fileID: 8567669202692403549}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2313,6 +2315,8 @@ MonoBehaviour:
   AttackSpeed: 3
   TargetRing: {fileID: 0}
   WeaponSpawnLocation: {fileID: 53820875}
+  solidObstacleColorData: {fileID: 0}
+  transparentObstacleColorData: {fileID: 0}
 --- !u!1 &8174333601660309104
 GameObject:
   m_ObjectHideFlags: 0

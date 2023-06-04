@@ -6,49 +6,76 @@ using UnityEngine.UI;
 
 public class Map : Singleton<Map>
 {
-    public int TotalBotNumber = 20;
-    public int AliveBotNumber = 20;
-    public int ActiveBotNumber;
-    public int MaximumBot = 5;
 
-    public Bounds MapBound;
-    public GameObject Floor;
-    private Vector3 RandomSpawnLocation;
+    public List<Bot> bots = new List<Bot>();
+    public int totalBotNumber = 20;
+    public int aliveBotNumber = 20;
+    public int activeBotNumber;
+    public int maximumBot = 5;
 
+    public Bounds mapBound;
+    public GameObject floor;
+    private Vector3 randomSpawnLocation;
+
+    public GameObject giftBox;
+    public float giftBoxCountDown = 10f;
     void Start()
     {
-        MapBound = Floor.GetComponent<Renderer>().bounds;
-        LevelManager.Ins.ChangeActiveBot(TotalBotNumber);
+        mapBound = floor.GetComponent<Renderer>().bounds;
+        LevelManager.Ins.ChangeActiveBot(totalBotNumber);
         CSpawnBot();
     }
     private void Update()
     {
-        Debug.Log("active bots: " + ActiveBotNumber);
+        Debug.Log("active bots: " + activeBotNumber);
+        SpawnGiftBox();
     }
     public void CSpawnBot()
     {
-        while(ActiveBotNumber < MaximumBot) 
+        while(activeBotNumber < maximumBot) 
         {
             StartCoroutine(SpawnBot());
             Debug.Log("spawned");
         }        
     }
-
+    public void DespawnBots()
+    {
+        for (int i = 0; i < bots.Count; i++)
+        {
+            bots[i].gameObject.SetActive(false);
+        }
+    }
     public void GetRandomPosition()
     {
-        RandomSpawnLocation.x = UnityEngine.Random.Range(MapBound.min.x, MapBound.max.x);
-        RandomSpawnLocation.y = MapBound.max.y + 1f;
-        RandomSpawnLocation.z = UnityEngine.Random.Range(MapBound.min.z, MapBound.max.z);
+        randomSpawnLocation.x = UnityEngine.Random.Range(mapBound.min.x, mapBound.max.x);
+        randomSpawnLocation.y = 0;
+        randomSpawnLocation.z = UnityEngine.Random.Range(mapBound.min.z, mapBound.max.z);
     }
 
     public IEnumerator SpawnBot()
     {
-        ActiveBotNumber++;
-        yield return Cache.GetWFS(5);
-        GetRandomPosition();
-        Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot, RandomSpawnLocation, Quaternion.identity);
-       
-        //TotalBotNumber--;     
+        if (activeBotNumber < maximumBot)
+        {
+            activeBotNumber++;
+            yield return Cache.GetWFS(5);
+            GetRandomPosition();
+            Bot bot = SimplePool.Spawn<Bot>(PoolType.Bot, randomSpawnLocation, Quaternion.identity);
+            bots.Add(bot);
+            //bot.OnInit();
+            //TotalBotNumber--; 
+        }
+
+    }
+
+    public void SpawnGiftBox()
+    {
+        giftBoxCountDown -= Time.deltaTime;
+        if (giftBoxCountDown <= 0.1f) 
+        {
+            GetRandomPosition();
+            Instantiate(giftBox, randomSpawnLocation, Quaternion.identity, transform);
+            giftBoxCountDown = 10f;
+        }
     }
 
 

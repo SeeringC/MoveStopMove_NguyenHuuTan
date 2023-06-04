@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e022ca78f1dae429a04d6c9ee97a9f, type: 3}
+  m_Name: New Solid Obstacle Color Data
+  m_EditorClassIdentifier: 
+  mats:
+  - {fileID: 2100000, guid: 5ddd855e066a92a499ce11d552d56efd, type: 2}

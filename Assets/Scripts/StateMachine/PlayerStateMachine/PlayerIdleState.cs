@@ -7,16 +7,16 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState(Player player)
     {
 
-        if (player.characterList.Count > 0)
+        if (player.IsCanAttack)
         {
-            player.SwitchState(player.AttackState);
+            player.ChangeState(player.AttackState);
         }
-        player.ChangeAnim(ConstantClass.AnimIsIdle);
+        player.ChangeAnim(ConstantClass.ANIM_IDLE);
 
     }
 
     public override void UpdateState(Player player)
     {
-     
+        player.GetJoystickInput();
     }
 }

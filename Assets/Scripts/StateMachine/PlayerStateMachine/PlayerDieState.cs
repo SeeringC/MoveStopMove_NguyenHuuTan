@@ -6,7 +6,8 @@ public class PlayerDieState : PlayerBaseState
 {
     public override void EnterState(Player player)
     {
-        player.OnDespawn();
+        player.ResetJoyStick();
+        player.ChangeAnim(ConstantClass.ANIM_DIE);
     }
 
     public override void UpdateState(Player player)

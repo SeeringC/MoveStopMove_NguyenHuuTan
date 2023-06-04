@@ -115,7 +115,11 @@ public static class ParticlePool
 
             obj.transform.SetPositionAndRotation( pos, rot);
             obj.Play();
+
+           
         }
+
+        
 
         public void Release() {
             while(inactive.Count > 0) {
@@ -179,7 +183,6 @@ public static class ParticlePool
 
         Play(shortcuts[particleType], pos, rot);
     }
-
     static public void Release(ParticleSystem prefab)
     {
         if (pools.ContainsKey(prefab.GetInstanceID()))

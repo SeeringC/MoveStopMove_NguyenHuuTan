@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class ConstantClass 
 {
-    public const string TagPlayer = "Player";
-    public const string TagBot = "Bot";
+    public const string TAG_PLAYER = "Player";
+    public const string TAG_BOT = "Bot";
+    public const string TAG_Wall = "Wall";
+    public const string GIFTBOX = "GiftBox";
 
-    public const string AnimIsAttack = "isAttack";
-    public const string AnimIsIdle = "isIdle";
-    public const string AnimIsRun = "isRun";
-    public const string AnimIsDead = "isDead";
 
-    public const string SavedPantsId = "SavedPantsID";
-    public const string SavedHairId = "SavedHairID";
-    public const string SavedShieldId = "SavedShieldID";
-    public const string SavedWeaponId = "SavedWeaponID";
+    public const string ANIM_ATTACK = "isAttack";
+    public const string ANIM_IDLE = "isIdle";
+    public const string ANIM_RUN = "isRun";
+    public const string ANIM_DIE = "isDead";
 
-    public const string PlayerCoin = "PlayerCoin";
-    public const string PlayerName = "PlayerName";
+    public const string SAVED_PANTS_ID = "SavedPantsID";
+    public const string SAVED_HAIR_ID = "SavedHairID";
+    public const string SAVED_SHIELD_ID = "SavedShieldID";
+    public const string SAVED_WEAPON_ID = "SavedWeaponID";
+
+    public const string PLAYER_COIN = "PlayerCoin";
+    public const string PLAYER_NAME = "PlayerName";
 }

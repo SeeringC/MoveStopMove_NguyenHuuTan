@@ -7,11 +7,18 @@ using UnityEngine.UI;
 
 public class PantsItem : MonoBehaviour
 {
+    PantsDisplay pantsDisplay;
+
     public int PantsID;
     public PantsData pantsData;
     //public TextMeshProUGUI PantsPrice;
     //public TextMeshProUGUI BonusAttackRange;
     public Image PantsSprite;
+
+    public void SetParent(PantsDisplay pantsDisplay)
+    {
+        this.pantsDisplay = pantsDisplay;
+    }
 
     public void DisplayPants(int ID)
     {

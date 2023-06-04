@@ -19,12 +19,15 @@ public class Bot : Character
     public Vector3 destination;
     public bool DestinationSet = false;
     public bool AttackAble = false;
-    
+
+
+
+
     public override void Start()
     {
         base.Start();
         OnInit();
-        currentState = PatrolState;
+        currentState = IdleState;
         currentState.EnterState(this);
 
         MapBound = Floor.GetComponent<Renderer>().bounds;
@@ -33,14 +36,7 @@ public class Bot : Character
     public override void Update()
     {
         base.Update();
-
         currentState.UpdateState(this);
-        //Debug.Log(currentState);
-        //Debug.Log("distance is" + Vector3.Distance(m_transform.position, destination));
-        //Debug.Log("currnt pos is" + m_transform.position);
-        //Debug.Log("currnt dest is" + destination);
-
-        //Debug.Log(currentState);
     }
     public override void OnDespawn()
     {
@@ -52,14 +48,10 @@ public class Bot : Character
         NameList.AddName(ref CharName);
         base.OnInit();
         Agent.speed = MoveSpeed;
+        currentState = IdleState;
+        this.des = new Vector3(m_transform.position.x, 0f, m_transform.position.z);
     }   
-    public void GetRandomPosition()
-    {
-        destination.x = Random.Range(MapBound.min.x, MapBound.max.x);
-        destination.y = MapBound.max.y - 1f;
-        destination.z = Random.Range(MapBound.min.z, MapBound.max.z);
-        DestinationSet = true;
-    }
+
 
     public void SwitchState(BaseState state)
     {
@@ -72,9 +64,37 @@ public class Bot : Character
     //    yield return Cache.GetWFS(3);
     //    Agent.isStopped = false;
     //}
-    
+
     //public void CResumeAgent()
     //{
     //    StartCoroutine(ResumeAgent());
     //}
+
+
+    public Vector3 des;
+
+    public bool isDestionationReached => Vector3.Distance(m_transform.position, des) < 0.3f;
+
+    public Vector3 GetRandomPosition()
+    {
+        des.x = Random.Range(MapBound.min.x, MapBound.max.x);
+        des.y = 0;
+        des.z = Random.Range(MapBound.min.z, MapBound.max.z);
+        return des;
+        //DestinationSet = true;
+        //TODO: navmesh.sampleposition
+
+        //SetDestination(destination);
+    }
+    public void SetDestination(Vector3 point)
+    {
+        this.des = point;
+        Agent.SetDestination(des);
+    }
+
+    public void Stop()
+    {
+        this.des = m_transform.position;
+        Agent.SetDestination(des);
+    }
 }

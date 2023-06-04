@@ -9,7 +9,7 @@ public class CoinManager : Singleton<CoinManager>
     public int CoinPerKill = 10;
     public void PrintCurrentCoin(TextMeshProUGUI Text)
     {
-        int CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PlayerCoin);
+        int CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PLAYER_COIN);
         Text.text = CurrentCoin.ToString();
     }
     public void PrintCoin(int CoinNumber, TextMeshProUGUI Text)
@@ -19,19 +19,19 @@ public class CoinManager : Singleton<CoinManager>
 
     public void AddCoin(int CoinNumber)
     {
-        int CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PlayerCoin);
+        int CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PLAYER_COIN);
         CurrentCoin += CoinNumber;
-        PlayerPrefs.SetInt(ConstantClass.PlayerCoin, CurrentCoin);
+        PlayerPrefs.SetInt(ConstantClass.PLAYER_COIN, CurrentCoin);
         PlayerPrefs.Save();
     }
 
     public void SubtractCoin(int CoinNumber)
     {
-        int CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PlayerCoin);
+        int CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PLAYER_COIN);
         if (CurrentCoin < CoinNumber) return;
 
         CurrentCoin -= CoinNumber;
-        PlayerPrefs.SetInt(ConstantClass.PlayerCoin, CurrentCoin);
+        PlayerPrefs.SetInt(ConstantClass.PLAYER_COIN, CurrentCoin);
         PlayerPrefs.Save();
     }
 

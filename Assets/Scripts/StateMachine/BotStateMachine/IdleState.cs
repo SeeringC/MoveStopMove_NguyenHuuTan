@@ -7,15 +7,15 @@ public class IdleState : BaseState
     public float CountDown = 2f;
     public override void EnterState(Bot bot)
     {
-        //bot.Agent.SetDestination(bot.m_transform.position);
-        bot.ChangeAnim(ConstantClass.AnimIsIdle);
-        bot.destination = bot.m_transform.position;
+        bot.ChangeAnim(ConstantClass.ANIM_IDLE);
+        bot.Stop();
 
-        if (bot.characterList.Count == 0) return;
-        if (!bot.AttackRange.TargetSet) return;
+        if (bot.IsCanAttack)
+        {
+            bot.SwitchState(bot.AttackState);
+        }
 
-        bot.SwitchState(bot.AttackState);
-        
+
     }
 
     public override void UpdateState(Bot bot)
@@ -24,6 +24,7 @@ public class IdleState : BaseState
         CountDown -= Time.deltaTime;
         if (CountDown <= 0.1f)
         {
+            CountDown = 2f;
             bot.SwitchState(bot.PatrolState);
         }
 

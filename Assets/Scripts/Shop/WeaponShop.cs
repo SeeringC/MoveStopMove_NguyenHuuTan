@@ -61,7 +61,7 @@ public class WeaponShop : UICanvas
     {
         Weapon weapon = (Weapon)WeaponIDToDisplay;
         Player.ChangeWeapon(weapon);
-        PlayerPrefs.SetInt(ConstantClass.SavedWeaponId, WeaponIDToDisplay);
+        PlayerPrefs.SetInt(ConstantClass.SAVED_WEAPON_ID, WeaponIDToDisplay);
         PlayerPrefs.Save();
 
         CloseWeaponShop();

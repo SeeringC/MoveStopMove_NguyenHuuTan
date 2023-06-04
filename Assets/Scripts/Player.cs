@@ -17,8 +17,8 @@ public class Player : Character
 
     public Vector3 lookDirection;
     public float RotationSpeed;
-    private float horizontalInput;
-    private float verticalInput;
+    public float horizontalInput;
+    public float verticalInput;
 
     public override void Start()
     {
@@ -31,7 +31,7 @@ public class Player : Character
     public override void Update()
     {
         base.Update();
-        GetJoystickInput();
+        //GetJoystickInput();
         currentState.UpdateState(this);
         
     }
@@ -52,12 +52,12 @@ public class Player : Character
         joystick = floatingJoystick;
     }
 
-    public void SwitchState(PlayerBaseState state)
+    public void ChangeState(PlayerBaseState state)
     {
         currentState = state;
         state.EnterState(this);
     }
-    private void GetJoystickInput()
+    public void GetJoystickInput()
     {
         horizontalInput = joystick.Horizontal;
         verticalInput = joystick.Vertical;
@@ -66,13 +66,19 @@ public class Player : Character
 
         if (Vector3.Distance(lookDirection, Vector3.zero) < 0.1f)
         {
-            SwitchState(IdleState);
+            ChangeState(IdleState);
         }
 
         if (Vector3.Distance(lookDirection, Vector3.zero) > 0.1f)
         {
-            SwitchState(PatrolState);
+            ChangeState(PatrolState);
         }
     }
+    public void ResetJoyStick()
+    {
+        horizontalInput = 0;
+        verticalInput = 0;
+    }
+
 
 }

@@ -7,10 +7,12 @@ public class WeaponScript : GameUnit
     public GameObject Target;
 
     public AttackRangeScript ParentAttackRing;
+    public ParticleSystem particle;
     private Vector3 targetPosition;
     private void Start()
     {
         OnInit();
+        
     }
     private void Update()
     {
@@ -35,26 +37,28 @@ public class WeaponScript : GameUnit
     {
         
         targetPosition = Target.transform.position;
+        ParentAttackRing.character.ResetPower();
         //Debug.Log(targetPosition);
-        
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(ConstantClass.TagBot))
+        if (other.CompareTag(ConstantClass.TAG_BOT))
         {
 
-            ParentAttackRing.character.Level++;
-            ParentAttackRing.character.IncreaseScale();
+            ParentAttackRing.character.IncreaseLevel();
 
             Character tempChar = Cache.GetCharacter(other);
 
             ParentAttackRing.character.RemoveCharacter(tempChar);
 
+
             tempChar.OnDespawn();
-            tempChar.Despawn();
+            //tempChar.Despawn();
+            tempChar.OnHit();
             //other.gameObject.SetActive(false);
             
-            if (ParentAttackRing.character.CompareTag(ConstantClass.TagPlayer))
+            if (ParentAttackRing.character.CompareTag(ConstantClass.TAG_PLAYER))
             {
                 ParentAttackRing.TargetRing.gameObject.SetActive(false);
                 CoinManager.Ins.IncreaseTotalKillCoin();
@@ -62,19 +66,20 @@ public class WeaponScript : GameUnit
 
             this.gameObject.SetActive(false);
 
-            Map.Ins.AliveBotNumber--;
-            Map.Ins.ActiveBotNumber--;
-            LevelManager.Ins.ChangeActiveBot(Map.Ins.AliveBotNumber);
+            Map.Ins.aliveBotNumber--;
+            Map.Ins.activeBotNumber--;
+            LevelManager.Ins.ChangeActiveBot(Map.Ins.aliveBotNumber);
             Map.Ins.CSpawnBot();
             
         }
 
-        if (other.CompareTag(ConstantClass.TagPlayer))
+        if (other.CompareTag(ConstantClass.TAG_PLAYER))
         {
-            ParentAttackRing.character.Level++;
-            ParentAttackRing.character.IncreaseScale();
+            ParentAttackRing.character.IncreaseLevel();
 
             Character tempChar = Cache.GetCharacter(other);
+            UIManager.Ins.GetUI<GamePlay>(UIManager.UIID.GamePlay).DeactiveJoystick(GameManager.Ins.Player);
+            tempChar.OnHit();
             LevelManager.Ins.LoseBy(ParentAttackRing.character.CharName);
         }
     }

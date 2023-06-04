@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 
 //Fix Vibated bug by Lerp
-
+//DotTween
+//OdinInspector
 public class Character : GameUnit
 {
     
@@ -16,6 +18,7 @@ public class Character : GameUnit
     public Transform m_transform;
     public AttackRangeScript AttackRange;
 
+    private string animName;
     public Animator Anim;
 
     public float MoveSpeed = 3f;
@@ -48,7 +51,8 @@ public class Character : GameUnit
     public string CharName;
     public GameObject CharacterScale;
     public int Level;
-
+    public bool IsCanAttack => (characterList.Count > 0 && AttackRange.TargetSet == true);
+    public bool isPoweredUp = false;
     public virtual void Start()
     {
         
@@ -65,6 +69,7 @@ public class Character : GameUnit
     public override void OnInit()
     {
         m_transform = GetComponent<Transform>();
+        //TODO: k dc dung getchild
         AttackRange = transform.GetChild(3).GetComponent<AttackRangeScript>();
         Anim = GetComponent<Animator>();
 
@@ -113,19 +118,14 @@ public class Character : GameUnit
     
     public void Attack()
     {
-        //Debug.Log(AttackRange.TargetSet);
-
-        if (characterList.Count == 0) return;
-        if (!AttackRange.TargetSet) return;
-        ChangeAnim(ConstantClass.AnimIsAttack);
+        ChangeAnim(ConstantClass.ANIM_ATTACK);
         AttackRange.CThrowWeapon();
     }
 
     public IEnumerator CDespawn()
     {
-        
+        ChangeAnim(ConstantClass.ANIM_DIE);
         yield return Cache.GetWFS(3);
-        ChangeAnim(ConstantClass.AnimIsDead);
         this.gameObject.SetActive(false);
     }
 
@@ -149,8 +149,8 @@ public class Character : GameUnit
 
     public void Despawn()
     {
-        gameObject.SetActive(false);
         //StartCoroutine(CDespawn()); 
+        gameObject.SetActive(false);
         onDespawnCallback?.Invoke(this);
 
         /// Clear all function in callback
@@ -180,16 +180,16 @@ public class Character : GameUnit
 
     public void GetItems()
     {
-        int PantsID = PlayerPrefs.GetInt(ConstantClass.SavedPantsId);
+        int PantsID = PlayerPrefs.GetInt(ConstantClass.SAVED_PANTS_ID);
         Pants pants = (Pants)PantsID;
 
-        int HairID = PlayerPrefs.GetInt(ConstantClass.SavedHairId);
+        int HairID = PlayerPrefs.GetInt(ConstantClass.SAVED_HAIR_ID);
         Hair hair = (Hair)HairID;
 
-        int ShieldID = PlayerPrefs.GetInt(ConstantClass.SavedShieldId);
+        int ShieldID = PlayerPrefs.GetInt(ConstantClass.SAVED_SHIELD_ID);
         Shield shield = (Shield)ShieldID;
 
-        int WeaponID = PlayerPrefs.GetInt(ConstantClass.SavedWeaponId);
+        int WeaponID = PlayerPrefs.GetInt(ConstantClass.SAVED_WEAPON_ID);
         Weapon weapon = (Weapon)WeaponID;
 
         ChangeWeapon((Weapon)WeaponID);
@@ -203,8 +203,9 @@ public class Character : GameUnit
         Ren.material.color = Random.ColorHSV(.5f, 1f, 1f, 1f);
     }
 
-    public void IncreaseScale()
+    public void IncreaseLevel()
     {
+        Level++;
         missionWaypoint.ChangeLevel(Level);
         if (ScaleIncreaseMileStone.LevelMileStone.Contains(Level))
         {
@@ -226,8 +227,70 @@ public class Character : GameUnit
         missionWaypoint.OnInit();
     }
 
+
     public void ChangeAnim(string AnimName)
     {
-        Anim.SetTrigger(AnimName);
+        if(this.animName!= AnimName)
+        {
+            Anim.ResetTrigger(this.animName);
+            this.animName = AnimName;
+            Anim.SetTrigger(AnimName);
+        }
+    }
+
+
+    public void OnHit()
+    {
+        OnDeath();
+    }
+
+    public virtual void OnDeath()
+    {
+        if (this.CompareTag(ConstantClass.TAG_BOT))
+        {
+            Bot bot = this.GetComponent<Bot>();
+            bot.SwitchState(bot.DieState);
+        }
+
+        if (this.CompareTag(ConstantClass.TAG_PLAYER))
+        {
+            Player player = this.GetComponent<Player>();
+            player.ChangeState(player.DieState);
+        }
+
+        ParticlePool.Play(ParticleType.Hit, m_transform.position, Quaternion.identity);
+        ChangeAnim(ConstantClass.ANIM_DIE);
+        Invoke(nameof(Despawn), 1f);
+    }
+
+    public void PowerUp()
+    {
+        CharacterScale.transform.localScale = CharacterScale.transform.localScale * 1.5f;
+        GetBonusAttackRange(50);
+        GetBonusAttackSpeed(50);
+        GetBonusMoveSpeed(50);
+        isPoweredUp = true;
+    }
+
+    public void ResetPower()
+    {
+        if (isPoweredUp)
+        {
+            CharacterScale.transform.localScale = CharacterScale.transform.localScale / 1.5f;
+            GetBonusAttackRange(-33);
+            GetBonusAttackSpeed(-33);
+            GetBonusMoveSpeed(-33);
+            isPoweredUp = false;
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(ConstantClass.GIFTBOX))
+        {
+            PowerUp();
+            Destroy(other.gameObject);
+        }
     }
 }

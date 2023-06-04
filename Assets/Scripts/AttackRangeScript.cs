@@ -16,6 +16,9 @@ public class AttackRangeScript : MonoBehaviour
     //public List<Character> enemiesInRange = new();
     public TargetRingScript TargetRing;
     public Transform WeaponSpawnLocation;
+
+    [SerializeField] private SolidObstacleColorData solidObstacleColorData;
+    [SerializeField] private TransparentObstacleColorData transparentObstacleColorData;
     private void Start()
     {  
         
@@ -27,7 +30,7 @@ public class AttackRangeScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(ConstantClass.TagBot) || other.CompareTag(ConstantClass.TagPlayer))
+        if (other.CompareTag(ConstantClass.TAG_BOT) || other.CompareTag(ConstantClass.TAG_PLAYER))
         {
             //enemiesInRange.Add(other.gameObject);
             Character tempChar = Cache.GetCharacter(other);
@@ -35,17 +38,22 @@ public class AttackRangeScript : MonoBehaviour
             character.AddCharacter(tempChar);
             TargetSet = true;
 
-            if (character.CompareTag(ConstantClass.TagBot)) return;
+            if (character.CompareTag(ConstantClass.TAG_BOT)) return;
             TargetRing.gameObject.SetActive(true);
             Character Target = character.characterList[0];
             TargetRing.Target = Target;
+        }
+
+        if (other.CompareTag(ConstantClass.TAG_Wall) && character.CompareTag(ConstantClass.TAG_PLAYER))
+        {
+            other.gameObject.GetComponent<Renderer>().sharedMaterial = transparentObstacleColorData.GetData(TransparentObstacleColor.Wall);
         }
         
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(ConstantClass.TagBot) || other.CompareTag(ConstantClass.TagPlayer))
+        if (other.CompareTag(ConstantClass.TAG_BOT) || other.CompareTag(ConstantClass.TAG_PLAYER))
         {
             //enemiesInRange.Remove(other.gameObject);
             //Character tempChar = other.GetComponent<Character>();
@@ -53,7 +61,7 @@ public class AttackRangeScript : MonoBehaviour
 
             character.RemoveCharacter(tempChar);
 
-            if (character.CompareTag(ConstantClass.TagBot)) return;
+            if (character.CompareTag(ConstantClass.TAG_BOT)) return;
 
             if (character.characterList.Count > 0)
             {
@@ -74,6 +82,11 @@ public class AttackRangeScript : MonoBehaviour
 
             TargetSet = false;
         }
+
+        if (other.CompareTag(ConstantClass.TAG_Wall) && character.CompareTag(ConstantClass.TAG_PLAYER))
+        {
+            other.gameObject.GetComponent<Renderer>().sharedMaterial = solidObstacleColorData.GetData(SolidObstacleColor.Wall);
+        }
     }
 
     public IEnumerator ThrowWeapon()
@@ -84,6 +97,7 @@ public class AttackRangeScript : MonoBehaviour
         WeaponScript weaponScript = SimplePool.Spawn<WeaponScript>(WeaponType, WeaponSpawnLocation.position, Quaternion.identity);
         weaponScript.ParentAttackRing = this;
         weaponScript.Target = Target.gameObject;
+        weaponScript.OnInit();
 
 
         yield return Cache.GetWFS(AttackSpeed);

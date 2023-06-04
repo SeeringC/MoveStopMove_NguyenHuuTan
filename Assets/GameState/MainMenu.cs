@@ -10,7 +10,7 @@ public class MainMenu : UICanvas
     public void PlayButton()
     {
         Time.timeScale = 1f;
-        Player = GameObject.FindGameObjectWithTag(ConstantClass.TagPlayer).GetComponent<Player>();
+        Player = GameObject.FindGameObjectWithTag(ConstantClass.TAG_PLAYER).GetComponent<Player>();
         Player.OnInit();
         //Player.missionWaypoint.CharNameText.text = PlayerPrefs.GetString("PlayerPref");
         UIManager.Ins.OpenUI<GamePlay>(UIManager.UIID.GamePlay).SetupOnOpen(GameManager.Ins.Player);
@@ -38,25 +38,25 @@ public class MainMenu : UICanvas
     public TMP_InputField PlayerName;
     public void SetCoin1000()
     {
-        PlayerPrefs.SetInt(ConstantClass.PlayerCoin, LevelManager.Ins.PlayerCoin);
+        PlayerPrefs.SetInt(ConstantClass.PLAYER_COIN, LevelManager.Ins.PlayerCoin);
     }
 
     public void Get1000Coin()
     {
-        CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PlayerCoin);
+        CurrentCoin = PlayerPrefs.GetInt(ConstantClass.PLAYER_COIN);
         CurrentCoin += 1000;
         CurrentCoinText.text = Convert.ToString(CurrentCoin);
     }
 
     public void SaveCoin()
     {
-        PlayerPrefs.SetInt(ConstantClass.PlayerCoin, CurrentCoin);
+        PlayerPrefs.SetInt(ConstantClass.PLAYER_COIN, CurrentCoin);
         PlayerPrefs.Save();
     }
 
     public void SaveName()
     {
-        PlayerPrefs.SetString(ConstantClass.PlayerName, PlayerName.text);
+        PlayerPrefs.SetString(ConstantClass.PLAYER_NAME, PlayerName.text);
         PlayerPrefs.Save();
     }
 

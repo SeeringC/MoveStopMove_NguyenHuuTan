@@ -28,4 +28,10 @@ public class GamePlay : UICanvas
     {
         player.Setup(floatingJoystick);
     }
+
+    public void DeactiveJoystick(Player player)
+    {
+        player.ResetJoyStick();
+        floatingJoystick = null;
+    }
 }

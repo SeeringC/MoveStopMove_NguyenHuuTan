@@ -38,8 +38,7 @@ public class MissionWaypoint : GameUnit
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
         
 
-        Debug.Log("x is: " + pos.x);
-        Debug.Log("y is: " + pos.y);
+      
         pos.z = 0;
         Img.transform.position = pos;
 

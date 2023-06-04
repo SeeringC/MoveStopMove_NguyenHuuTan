@@ -26,7 +26,7 @@ public class ShieldDisplay : MonoBehaviour
     {
         Shield shield = (Shield)ShieldID;
         Player.ChangeShield(shield);
-        PlayerPrefs.SetInt(ConstantClass.SavedShieldId, ShieldID);
+        PlayerPrefs.SetInt(ConstantClass.SAVED_SHIELD_ID, ShieldID);
         PlayerPrefs.Save();
         //CloseWeaponShop();
     }

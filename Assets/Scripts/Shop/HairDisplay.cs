@@ -29,7 +29,7 @@ public class HairDisplay : MonoBehaviour
         Hair hair = (Hair)HairID;
         Player.ChangeHair(hair);
 
-        PlayerPrefs.SetInt(ConstantClass.SavedHairId, HairID);
+        PlayerPrefs.SetInt(ConstantClass.SAVED_HAIR_ID, HairID);
         PlayerPrefs.Save();
 
         //CloseWeaponShop();

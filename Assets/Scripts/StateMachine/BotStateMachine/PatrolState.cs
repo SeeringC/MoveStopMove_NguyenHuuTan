@@ -7,30 +7,32 @@ public class PatrolState : BaseState
 {
     public override void EnterState(Bot bot)
     {
-        bot.ChangeAnim(ConstantClass.AnimIsRun);
+        bot.ChangeAnim(ConstantClass.ANIM_RUN);
 
-        if (!bot.DestinationSet)
+        if (bot.isDestionationReached)
         {
-            bot.GetRandomPosition();
+            bot.SetDestination(bot.GetRandomPosition());
         }
 
-        bot.Agent.SetDestination(bot.destination);
-        bot.DestinationSet = true;
     }
+
 
     public override void UpdateState(Bot bot)
     {
-        if (Vector3.Distance(bot.m_transform.position, bot.destination) < 0.3f)
+        Debug.Log("current pos is: " + bot.m_transform.position);
+        Debug.Log("target pos is: " + bot.des);
+        Debug.Log("is target reached: " + bot.isDestionationReached);
+        if (bot.isDestionationReached)
         {
-            bot.DestinationSet = false;
             bot.SwitchState(bot.IdleState);
-            //bot.GetRandomPosition();
-        }
+        }  
 
-        if (bot.characterList.Count == 0) return;
-        if (!bot.AttackRange.TargetSet) return;
-    
-        bot.SwitchState(bot.AttackState);
+        //TODO:
+        if (bot.IsCanAttack)
+        {
+            bot.SwitchState(bot.AttackState);
+
+        }
 
     }
 }

@@ -26,7 +26,7 @@ public class PantsDisplay : MonoBehaviour
         Pants pants = (Pants)PantsID;
         Player.ChangePants(pants);
 
-        PlayerPrefs.GetInt(ConstantClass.SavedPantsId, PantsID);
+        PlayerPrefs.GetInt(ConstantClass.SAVED_PANTS_ID, PantsID);
         PlayerPrefs.Save();
 
         //ClosePantsShop();

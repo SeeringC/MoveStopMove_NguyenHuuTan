@@ -7,20 +7,16 @@ public class AttackState : BaseState
     public float CountDownToAttack = 2f;
     public override void EnterState(Bot bot)
     {
-        bot.Agent.SetDestination(bot.m_transform.position);
+        bot.Stop();
         bot.Attack();
-
-
-        //bot.CResumeAgent();
-        //bot.SwitchState(bot.PatrolState);
     }
 
     public override void UpdateState(Bot bot)
     {
-        //bot.destination = bot.m_transform.position;
         CountDownToAttack -= Time.deltaTime;
         if (CountDownToAttack <= 0.1f)
         {
+            CountDownToAttack = 2f;
             bot.SwitchState(bot.PatrolState);
         }
     }
